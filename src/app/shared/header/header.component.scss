@@ -2,15 +2,57 @@ ul {
   display: flex;
   list-style: none;
   justify-content: space-between;
+  margin-bottom: 0;
+  user-select: none;
 }
 
 .links {
   display: flex;
-  li {
-    margin-right: 1rem;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+li {
+  text-shadow: 0px 13px 19px rgba(0, 0, 0, 0.24);
+  margin-right: 2.5rem;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 175% */
+  letter-spacing: 0.2px;
+  color: #fff;
+  cursor: pointer;
+  &:last-child {
+    margin-right: 0;
   }
 }
 
 .actions {
   display: flex;
+}
+
+.profile-block {
+}
+
+[nz-button] {
+  border-radius: 50%;
+  margin-right: 0.8rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(232, 232, 232, 0.4);
+}
+
+.saved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1.5);
+}
+
+.cart {
+  [nz-button] {
+    margin-right: 0;
+  }
 }

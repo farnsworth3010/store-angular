@@ -1,9 +1,15 @@
 nz-header {
   background: transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 2rem 3rem;
+  height: auto;
 }
 
 nz-footer {
-  background: #252B42;
+  background: #252b42;
   color: #fff;
   height: 9rem;
   display: flex;

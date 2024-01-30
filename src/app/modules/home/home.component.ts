@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { CategoriesComponent } from './categories/categories.component';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [
+    NzButtonComponent,
+    CategoriesComponent,
+    FeaturedProductsComponent,
+    NzDividerComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {}

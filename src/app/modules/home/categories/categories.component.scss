@@ -1,0 +1,75 @@
+section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+}
+
+.photo-block {
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: brightness(0.8);
+  background-position: center;
+  transition: background-size 0.5s;
+  &:hover {
+    background-size: 110% 110%;
+    transition: background-size 0.5s;
+  }
+}
+
+.left-block {
+  width: 100%;
+  .photo-block {
+    width: 100%;
+    height: 14vw;
+    &:first-child {
+      margin-bottom: 2vw;
+      background-image: url('../../../../assets/home/categories/hats.jfif');
+    }
+    &:last-child {
+      background-image: url('../../../../assets/home/categories/shoes.jfif');
+    }
+  }
+}
+
+.center-block {
+  width: 100%;
+  margin: 0 2vw;
+  height: 30vw;
+  .photo-block {
+    background-image: url('../../../../assets/home/categories/dresses.jfif');
+    height: 100%;
+  }
+}
+
+.right-block {
+  width: 100%;
+  .photo-block {
+    height: 14vw;
+    &:first-child {
+      background-image: url('../../../../assets/home/categories/bags.jfif');
+      margin-bottom: 2vw;
+    }
+    &:last-child {
+      background-image: url('../../../../assets/home/categories/clothes.jfif');
+    }
+  }
+}
+
+[nz-button] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: transparent;
+  border: 1.5px solid #fff;
+  border-radius: 0;
+  padding: 1.5rem 2rem;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.1px;
+}
