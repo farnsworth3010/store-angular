@@ -1,0 +1,16 @@
+ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.links {
+  display: flex;
+  li {
+    margin-right: 1rem;
+  }
+}
+
+.actions {
+  display: flex;
+}
