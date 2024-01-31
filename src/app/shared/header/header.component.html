@@ -1,11 +1,10 @@
-<ul>
+<ul class="header">
   <div class="links">
-    <li>Home</li>
-    <li>Shop</li>
-    <li>Account</li>
-    <li>Pages</li>
-    <li>Blog</li>
-    <li>Docs/Components</li>
+    @for (link of links; track $index) {
+      <li routerLinkActive="active" [routerLink]="link.link">
+        {{ link.label }}
+      </li>
+    }
   </div>
   <div class="actions">
     <li class="profile-block">
@@ -19,8 +18,27 @@
     </li>
     <li class="cart">
       <button nz-button nzType="primary" nzShape="circle">
-        <span nz-icon nzType="shopping-cart"></span>
+        <ShoppingCartOutlined />
       </button>
+    </li>
+    <li (click)="open()" class="menu">
+      <span nz-icon nzType="menu"></span>
     </li>
   </div>
 </ul>
+<nz-drawer
+  nzWidth="70vw"
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  [nzPlacement]="placement"
+  (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <ul class="drawer-content">
+      @for (link of links; track $index) {
+        <li routerLinkActive="active" [routerLink]="link.link">
+          {{ link.label }}
+        </li>
+      }
+    </ul>
+  </ng-container>
+</nz-drawer>

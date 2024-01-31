@@ -1,6 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-*, html {
+*,
+html {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+body {
+}
+
+.section-header {
+  text-align: center;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 5rem;
+  letter-spacing: 0.1px;
+}
+nz-header {
+  background: transparent !important;
+  height: auto !important;
 }

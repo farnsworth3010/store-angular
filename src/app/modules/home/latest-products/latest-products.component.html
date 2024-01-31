@@ -1,0 +1,8 @@
+<section>
+  <h1 class="section-header">Latest products</h1>
+  <div class="products-grid">
+    @for (product of mockData; track $index) {
+      <app-product imageType="wide" [showSizes]="true" [data]="product" />
+    }
+  </div>
+</section>

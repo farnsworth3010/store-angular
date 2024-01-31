@@ -1,0 +1,29 @@
+<div class="image-block">
+  <img
+    [class]="imageType"
+    alt="mock image"
+    [nzSrc]="data?.image ?? 'https://placehold.co/400'"
+    nz-image />
+  <button class="save" nz-button nzType="primary" nzShape="circle">
+    <span nz-icon nzType="heart"></span>
+  </button>
+</div>
+<div class="info">
+  <h1>{{ data?.title }}</h1>
+  <span class="example-color">({{ data?.exampleColor | titlecase }})</span>
+  <h2 class="price">{{ data?.price | currency }}</h2>
+  @if (showColors) {
+    <div class="colors">
+      @for (color of data?.colors; track $index) {
+        <div class="color" [style]="'background-color:' + color"></div>
+      }
+    </div>
+  }
+  @if (showSizes) {
+    <div class="sizes">
+      @for (size of data?.sizes; track $index) {
+        <div class="size">{{ size }}</div>
+      }
+    </div>
+  }
+</div>

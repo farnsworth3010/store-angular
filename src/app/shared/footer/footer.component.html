@@ -1,8 +1,7 @@
 <ul>
-  <li routerLink="/home" routerLinkActive="active">Home</li>
-  <li>Shop</li>
-  <li>Account</li>
-  <li>Pages</li>
-  <li>Blog</li>
-  <li>Docs/Components</li>
+  @for (link of links; track $index) {
+    <li routerLinkActive="active" [routerLink]="link.link">
+      {{ link.label }}
+    </li>
+  }
 </ul>

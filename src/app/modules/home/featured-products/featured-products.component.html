@@ -1,14 +1,38 @@
 <section>
-  <h1 class="header">Featured products</h1>
+  <h1 class="section-header">Featured products</h1>
   <nz-tabset nzCentered>
     <nz-tab nzTitle="Featured">
       <div class="content">
         @for (product of mockData; track $index) {
-          <app-product [data]="product" />
+          <app-product
+            imageType="tall"
+            [showColors]="true"
+            [showSizes]="true"
+            [data]="product" />
         }
       </div>
     </nz-tab>
-    <nz-tab nzTitle="Best Seller">Content of Tab Pane 2</nz-tab>
-    <nz-tab nzTitle="New Arrivals">Content of Tab Pane 3</nz-tab>
+    <nz-tab nzTitle="Best Seller">
+      <div class="content">
+        @for (product of mockData; track $index) {
+          <app-product
+            imageType="tall"
+            [showColors]="true"
+            [showSizes]="true"
+            [data]="product" />
+        }
+      </div>
+    </nz-tab>
+    <nz-tab nzTitle="New Arrivals">
+      <div class="content">
+        @for (product of mockData; track $index) {
+          <app-product
+            imageType="tall"
+            [showColors]="true"
+            [showSizes]="true"
+            [data]="product" />
+        }
+      </div>
+    </nz-tab>
   </nz-tabset>
 </section>

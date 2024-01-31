@@ -1,9 +1,22 @@
-ul {
+:host {
+  background: transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 2rem 3rem;
+  height: auto;
+}
+
+.header {
   display: flex;
   list-style: none;
   justify-content: space-between;
   margin-bottom: 0;
   user-select: none;
+  @media screen and (max-width: 768px) {
+    justify-content: flex-end;
+  }
 }
 
 .links {
@@ -11,9 +24,12 @@ ul {
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
-li {
+.header li {
   text-shadow: 0px 13px 19px rgba(0, 0, 0, 0.24);
   margin-right: 2.5rem;
   font-size: 16px;
@@ -33,6 +49,9 @@ li {
 }
 
 .profile-block {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 [nz-button] {
@@ -49,10 +68,53 @@ li {
   justify-content: center;
   align-items: center;
   transform: scale(1.5);
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .cart {
   [nz-button] {
     margin-right: 0;
+  }
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1.5);
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
+}
+
+.drawer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  list-style: none;
+  line-height: 4rem;
+  font-size: 5rem;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+:host.fixed {
+  z-index: 1;
+  background: #fff;
+  border-bottom: 1px solid #cecece;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  height: auto;
+  .header li {
+    color: #737373;
+  }
+  .header li.active {
+    color: #252b42;
   }
 }

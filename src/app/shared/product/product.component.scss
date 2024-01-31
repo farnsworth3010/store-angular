@@ -1,5 +1,4 @@
 :host {
-  width: 20rem;
 }
 img {
   width: 100%;
@@ -81,8 +80,18 @@ h1 {
 
 .image-block {
   position: relative;
-  height: 27rem;
+  .tall {
+    height: 500px;
+  }
+  .wide {
+    height: 12rem;
+    border-radius: 0;
+    @media screen and (max-width: 768px) {
+      height: 60vw;
+    }
+  }
   img {
+    object-fit: cover;
     height: 100%;
     &:hover {
     }

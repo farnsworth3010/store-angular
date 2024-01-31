@@ -3,6 +3,9 @@ section {
   align-items: center;
   justify-content: space-between;
   padding-bottom: 1.5rem;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .photo-block {
@@ -21,11 +24,20 @@ section {
 
 .left-block {
   width: 100%;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
   .photo-block {
     width: 100%;
     height: 16.5vw;
+    @media screen and (max-width: 768px) {
+      height: 50vw;
+    }
     &:first-child {
       margin-bottom: 2vw;
+      @media screen and (max-width: 768px) {
+        margin-bottom: 1rem;
+      }
       background-image: url('../../../../assets/home/categories/hats.jfif');
     }
     &:last-child {
@@ -38,6 +50,10 @@ section {
   width: 100%;
   margin: 0 2vw;
   height: 35vw;
+  @media screen and (max-width: 768px) {
+    height: 130vw;
+    margin-bottom: 1rem;
+  }
   .photo-block {
     background-image: url('../../../../assets/home/categories/dresses.jfif');
     height: 100%;
@@ -48,9 +64,15 @@ section {
   width: 100%;
   .photo-block {
     height: 16.5vw;
+    @media screen and (max-width: 768px) {
+      height: 50vw;
+    }
     &:first-child {
       background-image: url('../../../../assets/home/categories/bags.jfif');
       margin-bottom: 2vw;
+      @media screen and (max-width: 768px) {
+        margin-bottom: 1rem;
+      }
     }
     &:last-child {
       background-image: url('../../../../assets/home/categories/clothes.jfif');
