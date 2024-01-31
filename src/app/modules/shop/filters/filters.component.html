@@ -1,0 +1,64 @@
+<nz-card style="width: 300px" [nzBordered]="false">
+  <nz-input-group class="search" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Search for products" />
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+  </nz-input-group>
+  <nz-card>
+    <nz-collapse nzGhost nzExpandIconPosition="right">
+      @for (category of categories; track category) {
+        <nz-collapse-panel
+          [nzExtra]="extraTpl"
+          nzShowArrow="false"
+          [nzHeader]="category.title"
+          [nzActive]="category.active">
+          <ul class="options">
+            <li>View all</li>
+            @for (option of category.options; track option) {
+              <li>{{ option }}</li>
+            }
+          </ul>
+        </nz-collapse-panel>
+      }
+    </nz-collapse>
+    <ng-template #extraTpl>
+      <!-- You can use stopPropagation if you don't want the panel to toggle -->
+      <button
+        class="expand-plus"
+        nz-button
+        nzSize="small"
+        nzType="primary"
+        nzShape="circle">
+        <span nz-icon nzType="plus"></span>
+      </button>
+    </ng-template>
+  </nz-card>
+  <nz-card>
+    <p class="card-header">Color</p>
+    <nz-radio-group [ngModel]="radioValue">
+      <label nz-radio nzValue="A">Red</label>
+      <label nz-radio nzValue="B">Blue</label>
+      <label nz-radio nzValue="C">Orange</label>
+    </nz-radio-group>
+  </nz-card>
+  <nz-card>
+    <p class="card-header">Size</p>
+    <nz-radio-group [ngModel]="radioValue">
+      <label nz-radio nzValue="A">XL</label>
+      <label nz-radio nzValue="B">L</label>
+      <label nz-radio nzValue="C">M</label>
+      <label nz-radio nzValue="C">S</label>
+      <label nz-radio nzValue="C">XS</label>
+    </nz-radio-group>
+  </nz-card>
+  <nz-card>
+    <p class="card-header">Brands</p>
+    <nz-checkbox-wrapper>
+      <label nz-checkbox nzValue="B">B</label>
+      <label nz-checkbox nzValue="C">C</label>
+      <label nz-checkbox nzValue="D">D</label>
+      <label nz-checkbox nzValue="E">E</label>
+    </nz-checkbox-wrapper>
+  </nz-card>
+</nz-card>

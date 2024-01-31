@@ -2,3 +2,49 @@
   <app-header [fixed]="true" />
 </nz-header>
 <app-banner />
+<div class="shop-container">
+  <app-filters />
+  <div class="products-container">
+    <div class="actions">
+      <div class="select-container">
+        <p>Sort by:</p>
+        <nz-select ngModel="Popularity" nzSize="large">
+          <nz-option nzValue="Popularity" nzLabel="Popularity"></nz-option>
+          <nz-option nzValue="Price" nzLabel="Price"></nz-option>
+          <nz-option nzValue="Last added" nzLabel="Last added"></nz-option>
+        </nz-select>
+      </div>
+      <div class="change-view-container">
+        <button
+          nzSize="large"
+          nz-button
+          nzType="default"
+          (click)="toggleView('grid')"
+          [class.active]="viewType === 'grid'">
+          <span nz-icon nzType="appstore" nzTheme="outline"></span>
+        </button>
+        <button
+          (click)="toggleView('list')"
+          nzSize="large"
+          nz-button
+          nzType="default"
+          [class.active]="viewType === 'list'">
+          <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        </button>
+      </div>
+    </div>
+    <div>
+      <div class="products-grid" [class.list]="viewType === 'list'">
+        @for (product of mockData; track $index) {
+          <app-product
+            imageType="wide"
+            [viewType]="viewType"
+            [showColors]="viewType === 'list'"
+            [showSizes]="viewType === 'list'"
+            [data]="product" />
+        }
+      </div>
+      <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.expand-plus {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.options {
+  list-style: none;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2rem;
+  color: #737373;
+  letter-spacing: 0.2px;
+}
+
+nz-radio-group {
+  display: flex;
+  flex-direction: column;
+  label {
+    line-height: 2rem;
+  }
+}
+nz-checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  label {
+    line-height: 2rem;
+    margin-left: 0;
+  }
+}
+
+.card-header {
+  color: #252b42;
+  /* H5 */
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.5rem;
+  letter-spacing: 0.1px;
+}
+
+.search {
+  margin-bottom: 1rem;
+}
+
+nz-card {
+  margin-bottom: 1rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

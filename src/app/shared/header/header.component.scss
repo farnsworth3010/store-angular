@@ -4,7 +4,7 @@
   left: 0;
   top: 0;
   width: 100%;
-  padding: 2rem 3rem;
+  padding: 1rem 2rem;
   height: auto;
 }
 
@@ -111,6 +111,12 @@
   width: 100%;
   padding: 1rem 2rem;
   height: auto;
+  .cart button {
+    color: #252b42;
+  }
+  .profile-block button {
+    color: #252b42;
+  }
   .header li {
     color: #737373;
   }

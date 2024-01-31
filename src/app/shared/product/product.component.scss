@@ -107,3 +107,29 @@ h1 {
   right: 1rem;
   top: 1rem;
 }
+
+:host.list {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  background: #fff;
+  position: relative;
+  .ant-btn-primary {
+    color: #000;
+  }
+  .save {
+    background: rgba(232, 232, 232, 0.46);
+    svg path {
+      fill: red;
+    }
+  }
+  img {
+    margin-bottom: 0;
+    width: 15rem;
+    height: 13rem !important;
+  }
+  .image-block {
+    position: static;
+    margin-right: 1rem;
+  }
+}

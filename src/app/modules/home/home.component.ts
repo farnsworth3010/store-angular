@@ -6,6 +6,7 @@ import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { LatestProductsComponent } from './latest-products/latest-products.component';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { NzHeaderComponent } from 'ng-zorro-antd/layout';
     LatestProductsComponent,
     HeaderComponent,
     NzHeaderComponent,
+    RouterLink,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
