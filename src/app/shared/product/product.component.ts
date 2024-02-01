@@ -9,6 +9,7 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { FeaturedProduct } from '../../core/interfaces/featuredProduct';
+import { ColorsComponent } from '../colors/colors.component';
 
 @Component({
   selector: 'app-product',
@@ -19,6 +20,7 @@ import { FeaturedProduct } from '../../core/interfaces/featuredProduct';
     NzIconDirective,
     CurrencyPipe,
     TitleCasePipe,
+    ColorsComponent,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',

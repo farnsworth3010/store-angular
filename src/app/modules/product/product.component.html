@@ -1,0 +1,49 @@
+<nz-header>
+  <app-header [fixed]="true" />
+</nz-header>
+<div class="wrapper">
+  <nz-card>
+    <div class="product-content">
+      <div class="image-container">
+        <img
+          [nzSrc]="'sdf'"
+          nz-image
+          width="200px"
+          height="200px"
+          [nzFallback]="imageFallback"
+          alt="product image" />
+      </div>
+      <div class="product-info">
+        <h1 class="title">{{ data?.title }}</h1>
+        <div class="feedback-container">
+          <nz-rate [ngModel]="data.rating" nzDisabled></nz-rate>
+          <span class="review-counter">
+            {{ data.reviews?.length ?? 0 }} reviews
+          </span>
+        </div>
+        <div class="price-container">
+          @if (data?.off) {
+            <p class="calculated-price">
+              {{ (1 - data?.off! / 100) * data?.price! | currency }}
+            </p>
+          }
+          <p class="original-price" [class.old]="data?.off">
+            {{ data?.price | currency }}
+          </p>
+        </div>
+        <div class="color-container">
+          <p class="color-label">Color</p>
+          <app-colors [colors]="['red']" />
+        </div>
+        <div class="button-container">
+          <button nz-button nzType="default">Add to wisthlist</button>
+          <button nz-button nzType="primary">Add to cart</button>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+  <nz-tabset>
+    <nz-tab nzTitle="Description">Content of Tab Pane 1</nz-tab>
+    <nz-tab nzTitle="Reviews">Content of Tab Pane 2</nz-tab>
+  </nz-tabset>
+</div>

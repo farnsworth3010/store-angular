@@ -1,0 +1,59 @@
+.wrapper {
+  padding-top: calc(5.55rem + 5rem);
+}
+
+.product-content {
+  display: flex;
+}
+
+.original-price {
+  &.old {
+    text-decoration: line-through;
+  }
+}
+
+.image-container {
+  width: 60%;
+  margin-right: 1rem;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.feedback-container {
+  display: flex;
+  align-items: center;
+  nz-rate ul {
+    display: flex;
+    align-items: center;
+  }
+  .review-counter {
+    margin-top: 0.3rem;
+    margin-left: 1rem;
+    font-weight: 600;
+    color: #737373;
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #252b42;
+}
+
+.price-container {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: #252b42;
+  p {
+    margin: 1rem 0;
+  }
+  .calculated-price {
+    margin-right: 1rem;
+  }
+  .old {
+    color: #737373;
+  }
+}

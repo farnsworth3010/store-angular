@@ -12,12 +12,8 @@
   <h1>{{ data?.title }}</h1>
   <span class="example-color">({{ data?.exampleColor | titlecase }})</span>
   <h2 class="price">{{ data?.price | currency }}</h2>
-  @if (showColors) {
-    <div class="colors">
-      @for (color of data?.colors; track $index) {
-        <div class="color" [style]="'background-color:' + color"></div>
-      }
-    </div>
+  @if (showColors && data?.colors) {
+    <app-colors [colors]="data?.colors!" />
   }
   @if (showSizes) {
     <div class="sizes">

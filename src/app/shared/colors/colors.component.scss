@@ -1,0 +1,17 @@
+.colors {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  .color {
+    width: 1.5rem;
+    border: 3px solid #fff;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    background: #ff2525;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15);
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
