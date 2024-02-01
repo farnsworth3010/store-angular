@@ -15,6 +15,6 @@ export const productData: Product = {
   composition: [],
   description:
     "Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stum ptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcat cher synth. Cosby sweater eu banh mi",
-  images: ['/assets/'],
+  images: ['../../assets/product/1.png'],
   localStores: [],
 };

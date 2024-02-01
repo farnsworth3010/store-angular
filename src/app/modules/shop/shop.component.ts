@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { BannerComponent } from './banner/banner.component';
@@ -32,6 +36,8 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopComponent {
+  constructor(private changeDetector: ChangeDetectorRef) {}
+
   mockData: FeaturedProduct[] = [
     {
       title: "Men's Essential Tee",
@@ -149,5 +155,6 @@ export class ShopComponent {
   viewType: 'list' | 'grid' = 'grid';
   toggleView(type: 'list' | 'grid'): void {
     this.viewType = type;
+    this.changeDetector.markForCheck();
   }
 }

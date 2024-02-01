@@ -57,3 +57,35 @@
     color: #737373;
   }
 }
+
+.description {
+  width: 50%;
+}
+
+.color-label {
+  color: #737373;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+app-colors {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.button-container {
+  margin-bottom: 2rem;
+  button {
+    border-radius: 5px;
+  }
+  button:first-child {
+    margin-right: 1rem;
+  }
+}
+
+.short-description {
+  h2 {
+    color: #252b42;
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+}

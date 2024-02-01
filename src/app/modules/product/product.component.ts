@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { NzCardComponent } from 'ng-zorro-antd/card';
@@ -13,7 +13,6 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { Product } from '../../core/interfaces/product';
 import { productData } from '../../core/constants/productData';
 import { CurrencyPipe } from '@angular/common';
-import { error } from '@angular/compiler-cli/src/transformers/util';
 
 @Component({
   selector: 'app-product',
@@ -36,14 +35,12 @@ import { error } from '@angular/compiler-cli/src/transformers/util';
   styleUrl: './product.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   protected readonly imageFallback = imageFallback;
   protected readonly productData = productData;
-  protected readonly error = error;
-  data: Product = productData;
-  // image: string | null = null;
-  //
-  // ngOnInit() {
-  //   this.image = this.data.images[0]!;
-  // }
+  data: Product | null = productData;
+  currentImage: string | null | undefined = null;
+  ngOnInit() {
+    this.currentImage = this.data?.images[0];
+  }
 }
