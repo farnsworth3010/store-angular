@@ -1,0 +1,38 @@
+<nz-card nzTitle="Add new post">
+  <form
+    nz-form
+    [formGroup]="validateForm"
+    class="login-form"
+    (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control
+        class="form-input"
+        nzErrorTip="Please input a post title!">
+        <nz-input-group nzPrefixIcon="info">
+          <input
+            type="text"
+            [disabled]="sending"
+            nz-input
+            formControlName="title"
+            placeholder="Title" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control
+        class="form-input"
+        nzErrorTip="Please input a post text!">
+        <textarea
+          class="form-input textarea"
+          rows="4"
+          nz-input
+          placeholder="Text"
+          formControlName="text"
+          [disabled]="sending"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <button [disabled]="sending" nz-button [nzType]="'primary'">
+      {{ sending ? 'Sending...' : 'Send' }}
+    </button>
+  </form>
+</nz-card>

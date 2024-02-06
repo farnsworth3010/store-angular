@@ -1,0 +1,23 @@
+.blog-container {
+  padding: 0 5rem;
+  padding-bottom: 5rem;
+  margin-top: calc(5.55rem + 3rem);
+}
+
+app-new-post {
+  margin-bottom: 1.5rem;
+  display: block;
+}
+app-post {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+nz-card {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+nz-pagination {
+  text-align: center;
+}

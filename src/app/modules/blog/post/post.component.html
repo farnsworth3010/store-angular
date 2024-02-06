@@ -1,0 +1,10 @@
+<nz-card [nzTitle]="data.title" [id]="data.id">
+  <markdown>
+    {{ data.text }}
+  </markdown>
+  <nz-divider />
+  <p class="date">
+    {{ data.creation_date | date: "MMM dd, yyyy 'at' HH:mm " }}
+    by Admin
+  </p>
+</nz-card>

@@ -8,11 +8,13 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideMarkdown } from 'ngx-markdown';
 
 registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideMarkdown(),
     provideRouter(routes),
     provideNzI18n(en_US),
     importProvidersFrom(FormsModule),

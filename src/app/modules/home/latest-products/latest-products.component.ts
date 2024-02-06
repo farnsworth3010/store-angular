@@ -16,7 +16,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/1.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -24,7 +24,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/2.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -32,7 +32,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/3.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -40,7 +40,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/4.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -48,7 +48,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/5.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -56,7 +56,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/6.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -64,7 +64,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/7.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -72,7 +72,7 @@ export class LatestProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/latest/8.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],

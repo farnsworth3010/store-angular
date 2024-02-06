@@ -16,7 +16,7 @@ export class FeaturedProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/featured/mock1.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -24,7 +24,7 @@ export class FeaturedProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/featured/mock2.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -32,7 +32,7 @@ export class FeaturedProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/featured/mock3.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],
@@ -40,7 +40,7 @@ export class FeaturedProductsComponent {
     {
       title: "Men's Essential Tee",
       image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
+      // exampleColor: 'black',
       price: 32,
       colors: ['blue', 'green', 'orange', 'black'],
       sizes: ['XL', 'L', 'M', 'S'],

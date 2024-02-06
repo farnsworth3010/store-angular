@@ -1,0 +1,37 @@
+<nz-header>
+  <app-header [fixed]="true" />
+</nz-header>
+<div class="blog-container">
+  <app-new-post (formSubmit)="submitPost($event)" [sending]="sending" />
+  <div class="posts">
+    @if (fetching) {
+      <nz-card>
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+      </nz-card>
+      <nz-card>
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+      </nz-card>
+      <nz-card>
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+      </nz-card>
+      <nz-card>
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+      </nz-card>
+      <nz-card>
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+      </nz-card>
+    } @else {
+      @for (post of posts; track post) {
+        <app-post [data]="post" />
+      } @empty {
+        <nz-empty nzNotFoundContent="There are no posts yet" />
+      }
+    }
+    <nz-pagination
+      [nzPageIndex]="page + 1"
+      [nzPageSize]="5"
+      (nzPageIndexChange)="pageIndexChange($event - 1)"
+      [nzTotal]="total">
+    </nz-pagination>
+  </div>
+</div>

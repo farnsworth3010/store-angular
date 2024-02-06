@@ -2,7 +2,8 @@
   <img
     [class]="imageType"
     alt="mock image"
-    [nzSrc]="data?.image ?? 'https://placehold.co/400'"
+    [nzSrc]="data?.image!"
+    [nzFallback]="imageFallback"
     nz-image />
   <button class="save" nz-button nzType="primary" nzShape="circle">
     <span nz-icon nzType="heart"></span>
@@ -10,7 +11,7 @@
 </div>
 <div class="info">
   <h1>{{ data?.title }}</h1>
-  <span class="example-color">({{ data?.exampleColor | titlecase }})</span>
+  <!--  <span class="example-color">({{ data?.exampleColor | titlecase }})</span>-->
   <h2 class="price">{{ data?.price | currency }}</h2>
   @if (showColors && data?.colors) {
     <app-colors [colors]="data?.colors!" />

@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
+  OnInit,
 } from '@angular/core';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { HeaderComponent } from '../../shared/header/header.component';
@@ -14,6 +16,9 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 import { FormsModule } from '@angular/forms';
+import { ShopService } from '../../core/services/shop.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NzEmptyComponent } from 'ng-zorro-antd/empty';
 
 @Component({
   selector: 'app-shop',
@@ -30,129 +35,30 @@ import { FormsModule } from '@angular/forms';
     NzOptionComponent,
     NzPaginationComponent,
     FormsModule,
+    NzEmptyComponent,
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShopComponent {
-  constructor(private changeDetector: ChangeDetectorRef) {}
-
-  mockData: FeaturedProduct[] = [
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock1.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock2.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock3.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-  ];
+export class ShopComponent implements OnInit {
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    public shop: ShopService,
+    private destroyRef: DestroyRef
+  ) {}
+  data: FeaturedProduct[] | null = null;
   viewType: 'list' | 'grid' = 'grid';
+  ngOnInit() {
+    this.shop
+      .getProducts()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res: FeaturedProduct[]) => {
+        this.data = res;
+        this.changeDetector.markForCheck();
+      });
+  }
+
   toggleView(type: 'list' | 'grid'): void {
     this.viewType = type;
     this.changeDetector.markForCheck();

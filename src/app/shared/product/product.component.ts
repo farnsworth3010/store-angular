@@ -10,6 +10,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { FeaturedProduct } from '../../core/interfaces/featuredProduct';
 import { ColorsComponent } from '../colors/colors.component';
+import { imageFallback } from '../../core/constants/imageFallback';
 
 @Component({
   selector: 'app-product',
@@ -35,4 +36,6 @@ export class ProductComponent {
   @HostBinding('class.list') get isList() {
     return this.viewType === 'list';
   }
+
+  protected readonly imageFallback = imageFallback;
 }

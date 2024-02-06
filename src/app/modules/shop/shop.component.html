@@ -35,13 +35,15 @@
     </div>
     <div>
       <div class="products-grid" [class.list]="viewType === 'list'">
-        @for (product of mockData; track $index) {
+        @for (product of data; track $index) {
           <app-product
             imageType="wide"
             [viewType]="viewType"
             [showColors]="viewType === 'list'"
             [showSizes]="viewType === 'list'"
             [data]="product" />
+        } @empty {
+          <nz-empty />
         }
       </div>
       <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>

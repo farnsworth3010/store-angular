@@ -11,7 +11,11 @@ export const NavLinks: NavLink[] = [
     link: '/account',
   },
   {
-    label: 'Source',
-    link: '',
+    label: 'Blog',
+    link: '/blog',
   },
+  // {
+  //   label: 'Source',
+  //   link: 'source',
+  // },
 ];
