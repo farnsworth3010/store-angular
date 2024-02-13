@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { ColorsComponent } from '../../shared/colors/colors.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { Product } from '../../core/interfaces/product';
-import { productData } from '../../core/constants/productData';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -37,8 +36,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class ProductComponent implements OnInit {
   protected readonly imageFallback = imageFallback;
-  protected readonly productData = productData;
-  data: Product | null = productData;
+  data: Product | null = null;
   currentImage: string | null | undefined = null;
   ngOnInit() {
     this.currentImage = this.data?.images[0];

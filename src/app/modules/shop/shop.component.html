@@ -35,18 +35,28 @@
     </div>
     <div>
       <div class="products-grid" [class.list]="viewType === 'list'">
-        @for (product of data; track $index) {
-          <app-product
-            imageType="wide"
-            [viewType]="viewType"
-            [showColors]="viewType === 'list'"
-            [showSizes]="viewType === 'list'"
-            [data]="product" />
-        } @empty {
-          <nz-empty />
+        @if (fetching) {
+          <nz-spin nzSize="large" nzSimple></nz-spin>
+        } @else {
+          @for (product of data; track product.ID) {
+            <app-product
+              imageType="wide"
+              [viewType]="viewType"
+              [showColors]="viewType === 'list'"
+              [showSizes]="viewType === 'list'"
+              [data]="product" />
+          } @empty {
+            <nz-empty />
+          }
         }
       </div>
-      <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>
+      @if (!fetching) {
+        <nz-pagination
+          [nzPageIndex]="page + 1"
+          [nzPageSize]="20"
+          (nzPageIndexChange)="pageIndexChange($event - 1)"
+          [nzTotal]="total"></nz-pagination>
+      }
     </div>
   </div>
 </div>

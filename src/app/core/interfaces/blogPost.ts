@@ -1,7 +1,8 @@
 export interface BlogPost {
-  id: number;
+  ID: number;
   title: string;
-  creation_date: Date;
+  CreatedAt: Date;
+  UpdatedAt: Date;
   text: string;
 }
 

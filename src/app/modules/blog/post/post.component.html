@@ -1,10 +1,14 @@
-<nz-card [nzTitle]="data.title" [id]="data.id">
+<nz-card [nzTitle]="data.title" [id]="data.ID" [nzExtra]="blogAdmin">
   <markdown>
     {{ data.text }}
   </markdown>
   <nz-divider />
   <p class="date">
-    {{ data.creation_date | date: "MMM dd, yyyy 'at' HH:mm " }}
+    {{ data.CreatedAt | date: "MMM dd, yyyy 'at' HH:mm " }}
     by Admin
   </p>
 </nz-card>
+<ng-template #blogAdmin>
+  <a>Edit </a>
+  <a (click)="deleteBlogHandle()">Delete</a>
+</ng-template>

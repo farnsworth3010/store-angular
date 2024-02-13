@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { BlogPost } from '../../../core/interfaces/blogPost';
 import { DatePipe } from '@angular/common';
@@ -15,4 +21,8 @@ import { NzDividerComponent } from 'ng-zorro-antd/divider';
 })
 export class PostComponent {
   @Input() data!: BlogPost;
+  @Output() deleteBlog: EventEmitter<void> = new EventEmitter<void>();
+  deleteBlogHandle() {
+    this.deleteBlog.emit();
+  }
 }

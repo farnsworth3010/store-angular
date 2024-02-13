@@ -21,8 +21,8 @@
         <nz-skeleton [nzActive]="true"></nz-skeleton>
       </nz-card>
     } @else {
-      @for (post of posts; track post) {
-        <app-post [data]="post" />
+      @for (post of posts; track post.ID) {
+        <app-post (deleteBlog)="deleteBlog(post.ID)" [data]="post" />
       } @empty {
         <nz-empty nzNotFoundContent="There are no posts yet" />
       }

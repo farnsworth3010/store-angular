@@ -42,17 +42,16 @@ export class BlogComponent implements OnInit {
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  posts: BlogPost[] | null = null;
+  posts: BlogPost[] | null | undefined = null;
   page: number = 0;
   total: number = 0;
   fetching: boolean = true;
   sending: boolean = false;
   submitPost({ title, text }: { title: string; text: string }) {
     this.changeDetector.markForCheck();
-    this.fetching = true;
     this.sending = true;
     this.shop
-      .addPost(title, text)
+      .createBlog(title, text)
       .pipe(delay(1000))
       .subscribe(res => {
         if (!this.posts?.length) {
@@ -60,8 +59,9 @@ export class BlogComponent implements OnInit {
           newPosts.push({
             title,
             text,
-            id: res.id,
-            creation_date: new Date(),
+            ID: res.id,
+            CreatedAt: new Date(),
+            UpdatedAt: new Date(),
           });
           this.posts = newPosts;
         } else {
@@ -69,21 +69,21 @@ export class BlogComponent implements OnInit {
           newPosts.unshift({
             title,
             text,
-            id: res.id,
-            creation_date: new Date(),
+            ID: res.id,
+            CreatedAt: new Date(),
+            UpdatedAt: new Date(),
           });
           this.posts = newPosts;
         }
         console.log('New post id: ' + res.id);
         this.sending = false;
-        this.fetching = false;
         this.changeDetector.markForCheck();
       });
   }
 
   ngOnInit() {
     this.shop
-      .getPosts(this.page, 5)
+      .getBlog(this.page, 5)
       .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
       .subscribe((res: ResponseBlogPost) => {
         this.posts = res.data;
@@ -102,7 +102,7 @@ export class BlogComponent implements OnInit {
     this.page = page;
     this.fetching = true;
     this.shop
-      .getPosts(page, 5)
+      .getBlog(page, 5)
       .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
       .subscribe((res: ResponseBlogPost) => {
         this.posts = res.data;
@@ -110,5 +110,13 @@ export class BlogComponent implements OnInit {
         this.fetching = false;
         this.changeDetector.markForCheck();
       });
+  }
+  deleteBlog(ID: number) {
+    this.shop.deleteBlog(ID).subscribe(() => {
+      this.posts = this.posts?.filter((el: BlogPost) => {
+        return el.ID != ID;
+      });
+      this.changeDetector.markForCheck();
+    });
   }
 }

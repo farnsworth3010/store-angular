@@ -8,9 +8,9 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { CurrencyPipe, TitleCasePipe } from '@angular/common';
-import { FeaturedProduct } from '../../core/interfaces/featuredProduct';
 import { ColorsComponent } from '../colors/colors.component';
 import { imageFallback } from '../../core/constants/imageFallback';
+import { Product } from '../../core/interfaces/product';
 
 @Component({
   selector: 'app-product',
@@ -30,7 +30,7 @@ import { imageFallback } from '../../core/constants/imageFallback';
 export class ProductComponent {
   @Input() showSizes: boolean = false;
   @Input() showColors: boolean = false;
-  @Input() data: FeaturedProduct | null = null;
+  @Input() data: Product | null = null;
   @Input({ required: true }) imageType!: 'tall' | 'wide' | 'square';
   @Input() viewType: 'grid' | 'list' = 'grid';
   @HostBinding('class.list') get isList() {

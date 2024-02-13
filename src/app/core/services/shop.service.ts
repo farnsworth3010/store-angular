@@ -2,27 +2,35 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { apiUrl } from '../constants/apiUrl';
 import { Observable } from 'rxjs';
-import { FeaturedProduct } from '../interfaces/featuredProduct';
 import { ResponseBlogPost, ResponseNewBlogPost } from '../interfaces/blogPost';
+import { ResponseProduct } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
   constructor(private http: HttpClient) {}
-  getProducts(): Observable<FeaturedProduct[]> {
-    return this.http.get<FeaturedProduct[]>(apiUrl + '/products');
+  getProducts(page: number, limit: number): Observable<ResponseProduct> {
+    return this.http.get<ResponseProduct>(
+      apiUrl + `/product/?page=${page}&limit=${limit}`
+    );
+  }
+  getLatestProduct(): Observable<ResponseProduct> {
+    return this.http.get<ResponseProduct>(apiUrl + '/product/latest');
   }
 
-  getPosts(page: number, limit: number): Observable<ResponseBlogPost> {
+  getBlog(page: number, limit: number): Observable<ResponseBlogPost> {
     return this.http.get<ResponseBlogPost>(
       apiUrl + `/blog/?page=${page}&limit=${limit}`
     );
   }
-  addPost(title: string, text: string): Observable<ResponseNewBlogPost> {
+  createBlog(title: string, text: string): Observable<ResponseNewBlogPost> {
     return this.http.post<ResponseNewBlogPost>(apiUrl + `/blog/`, {
       title,
       text,
     });
+  }
+  deleteBlog(id: number): Observable<void> {
+    return this.http.delete<void>(apiUrl + `/blog/${id}`);
   }
 }

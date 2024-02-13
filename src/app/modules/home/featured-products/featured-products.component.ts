@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NzTabComponent, NzTabSetComponent } from 'ng-zorro-antd/tabs';
 import { ProductComponent } from '../../../shared/product/product.component';
-import { FeaturedProduct } from '../../../core/interfaces/featuredProduct';
+import { Product } from '../../../core/interfaces/product';
 
 @Component({
   selector: 'app-featured-products',
@@ -12,38 +12,5 @@ import { FeaturedProduct } from '../../../core/interfaces/featuredProduct';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeaturedProductsComponent {
-  mockData: FeaturedProduct[] = [
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock1.jfif',
-      // exampleColor: 'black',
-      price: 32,
-      colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock2.jfif',
-      // exampleColor: 'black',
-      price: 32,
-      colors: ['#2091F9', '#2DC071', '#E77C40', '#252B42'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock3.jfif',
-      // exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-    {
-      title: "Men's Essential Tee",
-      image: '../../../../assets/home/featured/mock4.jfif',
-      // exampleColor: 'black',
-      price: 32,
-      colors: ['blue', 'green', 'orange', 'black'],
-      sizes: ['XL', 'L', 'M', 'S'],
-    },
-  ];
+  data: Product[] | null = null;
 }

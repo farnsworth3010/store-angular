@@ -3,7 +3,7 @@
   <nz-tabset nzCentered>
     <nz-tab nzTitle="Featured">
       <div class="content">
-        @for (product of mockData; track $index) {
+        @for (product of data; track product.ID) {
           <app-product
             imageType="tall"
             [showColors]="true"
@@ -14,7 +14,7 @@
     </nz-tab>
     <nz-tab nzTitle="Best Seller">
       <div class="content">
-        @for (product of mockData; track $index) {
+        @for (product of data; track product.ID) {
           <app-product
             imageType="tall"
             [showColors]="true"
@@ -25,7 +25,7 @@
     </nz-tab>
     <nz-tab nzTitle="New Arrivals">
       <div class="content">
-        @for (product of mockData; track $index) {
+        @for (product of data; track product.ID) {
           <app-product
             imageType="tall"
             [showColors]="true"

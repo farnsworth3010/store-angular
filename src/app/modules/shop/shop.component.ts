@@ -8,7 +8,6 @@ import {
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { BannerComponent } from './banner/banner.component';
-import { FeaturedProduct } from '../../core/interfaces/featuredProduct';
 import { ProductComponent } from '../../shared/product/product.component';
 import { FiltersComponent } from './filters/filters.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
@@ -19,6 +18,9 @@ import { FormsModule } from '@angular/forms';
 import { ShopService } from '../../core/services/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzEmptyComponent } from 'ng-zorro-antd/empty';
+import { Product, ResponseProduct } from '../../core/interfaces/product';
+import { delay } from 'rxjs';
+import { NzSpinComponent } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-shop',
@@ -36,6 +38,7 @@ import { NzEmptyComponent } from 'ng-zorro-antd/empty';
     NzPaginationComponent,
     FormsModule,
     NzEmptyComponent,
+    NzSpinComponent,
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
@@ -47,14 +50,20 @@ export class ShopComponent implements OnInit {
     public shop: ShopService,
     private destroyRef: DestroyRef
   ) {}
-  data: FeaturedProduct[] | null = null;
+  data: Product[] | null = null;
+  total: number = 0;
   viewType: 'list' | 'grid' = 'grid';
+  page: number = 1;
+  pageSize: number = 20;
+  fetching: boolean = true;
   ngOnInit() {
     this.shop
-      .getProducts()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res: FeaturedProduct[]) => {
-        this.data = res;
+      .getProducts(this.page, this.pageSize)
+      .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
+      .subscribe((res: ResponseProduct) => {
+        this.fetching = false;
+        this.data = res.data;
+        this.total = res.total;
         this.changeDetector.markForCheck();
       });
   }
@@ -62,5 +71,23 @@ export class ShopComponent implements OnInit {
   toggleView(type: 'list' | 'grid'): void {
     this.viewType = type;
     this.changeDetector.markForCheck();
+  }
+  pageIndexChange(page: number) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+    this.page = page;
+    this.fetching = true;
+    this.shop
+      .getProducts(page, 20)
+      .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
+      .subscribe((res: ResponseProduct) => {
+        this.data = res.data;
+        this.total = res.total;
+        this.fetching = false;
+        this.changeDetector.markForCheck();
+      });
   }
 }
