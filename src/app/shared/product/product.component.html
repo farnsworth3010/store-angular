@@ -1,24 +1,25 @@
-<div class="image-block">
+<div [routerLink]="'/product/' + data.ID" class="image-block">
   <img
     [class]="imageType"
     alt="mock image"
-    [nzSrc]="'sd'"
+    [nzSrc]="data.images ? data.images[0] : 'a'"
     [nzFallback]="imageFallback"
+    [nzDisablePreview]="true"
     nz-image />
   <button class="save" nz-button nzType="primary" nzShape="circle">
     <span nz-icon nzType="heart"></span>
   </button>
 </div>
 <div class="info">
-  <h1>{{ data?.title }}</h1>
+  <h1>{{ data.title }}</h1>
   <!--  <span class="example-color">({{ data?.exampleColor | titlecase }})</span>-->
-  <h2 class="price">{{ data?.price | currency }}</h2>
-  @if (showColors && data?.colors) {
-    <app-colors [colors]="data?.colors!" />
+  <h2 class="price">{{ data.price | currency }}</h2>
+  @if (showColors && data.colors) {
+    <app-colors [colors]="data.colors!" />
   }
   @if (showSizes) {
     <div class="sizes">
-      @for (size of data?.sizes; track $index) {
+      @for (size of data.sizes; track $index) {
         <div class="size">{{ size }}</div>
       }
     </div>

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { NzCardComponent } from 'ng-zorro-antd/card';
@@ -12,6 +17,8 @@ import { ColorsComponent } from '../../shared/colors/colors.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { Product } from '../../core/interfaces/product';
 import { CurrencyPipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { ShopService } from '../../core/services/shop.service';
 
 @Component({
   selector: 'app-product',
@@ -36,9 +43,20 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class ProductComponent implements OnInit {
   protected readonly imageFallback = imageFallback;
+  constructor(
+    private route: ActivatedRoute,
+    private shop: ShopService,
+    private changeDetector: ChangeDetectorRef
+  ) {}
   data: Product | null = null;
   currentImage: string | null | undefined = null;
   ngOnInit() {
-    this.currentImage = this.data?.images[0];
+    this.shop
+      .getProduct(+this.route.snapshot.paramMap.get('id')!)
+      .subscribe((res: Product) => {
+        this.data = res;
+        this.currentImage = this.data?.images[0];
+        this.changeDetector.markForCheck();
+      });
   }
 }

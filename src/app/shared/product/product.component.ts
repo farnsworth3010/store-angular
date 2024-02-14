@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   HostBinding,
   Input,
@@ -11,6 +12,7 @@ import { CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { ColorsComponent } from '../colors/colors.component';
 import { imageFallback } from '../../core/constants/imageFallback';
 import { Product } from '../../core/interfaces/product';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -22,6 +24,7 @@ import { Product } from '../../core/interfaces/product';
     CurrencyPipe,
     TitleCasePipe,
     ColorsComponent,
+    RouterLink,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
@@ -30,12 +33,13 @@ import { Product } from '../../core/interfaces/product';
 export class ProductComponent {
   @Input() showSizes: boolean = false;
   @Input() showColors: boolean = false;
-  @Input() data: Product | null = null;
+  @Input() data!: Product;
   @Input({ required: true }) imageType!: 'tall' | 'wide' | 'square';
   @Input() viewType: 'grid' | 'list' = 'grid';
   @HostBinding('class.list') get isList() {
     return this.viewType === 'list';
   }
-
+  constructor(private changeDetector: ChangeDetectorRef) {}
   protected readonly imageFallback = imageFallback;
+  protected readonly toString = toString;
 }
