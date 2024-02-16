@@ -7,17 +7,34 @@
     }
   </div>
   <div class="actions">
-    <li class="profile-block">
-      <button nz-button nzType="primary" nzShape="circle">
-        <span nz-icon nzType="user"></span>
-      </button>
-      My account
-    </li>
+    @if (showSignOut) {
+      <li class="profile-block" (click)="signOut()">
+        <button
+          class="circle-button"
+          nz-button
+          nzType="primary"
+          nzShape="circle">
+          <span nz-icon nzType="user"></span>
+        </button>
+        Sign out
+      </li>
+    } @else {
+      <li class="profile-block" (click)="showModal()">
+        <button
+          class="circle-button"
+          nz-button
+          nzType="primary"
+          nzShape="circle">
+          <span nz-icon nzType="user"></span>
+        </button>
+        Sign in/up
+      </li>
+    }
     <li class="saved">
       <span nz-icon nzType="heart" nzTheme="outline"></span>
     </li>
     <li class="cart">
-      <button nz-button nzType="primary" nzShape="circle">
+      <button class="circle-button" nz-button nzType="primary" nzShape="circle">
         <span nz-icon nzType="shopping-cart"></span>
       </button>
     </li>
@@ -42,3 +59,43 @@
     </ul>
   </ng-container>
 </nz-drawer>
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  [nzTitle]="showSignUp ? 'Sign in' : 'Sign up'"
+  nzCancelText="Later"
+  (nzOnCancel)="handleCancel()"
+  nzCentered
+  [nzOkLoading]="isOkLoading">
+  <div *nzModalContent>
+    @if (showSignUp) {
+      <app-sign-in #signIn />
+    } @else {
+      <app-sign-up #signUp />
+    }
+  </div>
+  <div *nzModalFooter>
+    @if (showSignUp) {
+      <button nz-button nzType="default" (click)="toggleRegistered()">
+        Sign up
+      </button>
+      <button
+        [nzLoading]="isOkLoading"
+        nz-button
+        nzType="primary"
+        (click)="handleOk()">
+        Confirm
+      </button>
+    } @else {
+      <button nz-button nzType="default" (click)="toggleRegistered()">
+        Sign in
+      </button>
+      <button
+        [nzLoading]="isOkLoading"
+        nz-button
+        nzType="primary"
+        (click)="handleOk()">
+        Confirm
+      </button>
+    }
+  </div>
+</nz-modal>

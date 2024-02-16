@@ -51,6 +51,11 @@ export class ProductComponent implements OnInit {
   data: Product | null = null;
   currentImage: string | null | undefined = null;
   ngOnInit() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    });
     this.shop
       .getProduct(+this.route.snapshot.paramMap.get('id')!)
       .subscribe((res: Product) => {

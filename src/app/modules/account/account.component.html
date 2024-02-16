@@ -1,3 +1,10 @@
 <nz-header>
   <app-header [fixed]="true" />
 </nz-header>
+
+<div class="account-container">
+  <p>firstname: {{ userInfo?.firstname }}</p>
+  <p>email: {{ userInfo?.email }}</p>
+  <p>number: {{ userInfo?.phoneNumber }}</p>
+  <button (click)="signOut()" nz-button>Sign out</button>
+</div>

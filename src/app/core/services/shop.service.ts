@@ -4,6 +4,12 @@ import { apiUrl } from '../constants/apiUrl';
 import { Observable } from 'rxjs';
 import { ResponseBlogPost, ResponseNewBlogPost } from '../interfaces/blogPost';
 import { Product, ResponseProduct } from '../interfaces/product';
+import {
+  JWTToken,
+  SignInData,
+  SignUpData,
+  SignUpResponse,
+} from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +41,16 @@ export class ShopService {
   }
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(apiUrl + `/blog/${id}`);
+  }
+
+  signIn(signInData: SignInData): Observable<JWTToken> {
+    return this.http.post<JWTToken>(apiUrl + `/auth/sign-in`, {
+      ...signInData,
+    });
+  }
+  signUp(signUpData: SignUpData): Observable<SignUpResponse> {
+    return this.http.post<SignUpResponse>(apiUrl + `/auth/sign-up`, {
+      ...signUpData,
+    });
   }
 }
