@@ -3,8 +3,39 @@
 </nz-header>
 
 <div class="account-container">
-  <p>firstname: {{ userInfo?.firstname }}</p>
-  <p>email: {{ userInfo?.email }}</p>
-  <p>number: {{ userInfo?.phoneNumber }}</p>
-  <button (click)="signOut()" nz-button>Sign out</button>
+  <nz-card>
+    <div class="main-info">
+      <nz-avatar [nzSize]="64" nzIcon="user"></nz-avatar>
+      <p>{{ userInfo?.firstname }}</p>
+    </div>
+    <p>Email: {{ userInfo?.email }}</p>
+    <p>Phone number: {{ userInfo?.phoneNumber }}</p>
+    <div class="buttons">
+      <button nzType="primary" (click)="signOut()" nz-button>Sign out</button>
+      <nz-divider></nz-divider>
+      <button (click)="toggleDeleteAccountModal()" nzDanger nz-button>
+        Delete account
+      </button>
+    </div>
+  </nz-card>
 </div>
+<nz-modal
+  [(nzVisible)]="isDeleteModalVisible"
+  nzTitle="Deleting account"
+  nzOkText="Ok"
+  nzCancelText="Cancel"
+  (nzOnOk)="deleteAccount()"
+  nzCentered
+  (nzOnCancel)="handleDeleteCancel()">
+  <ng-container *nzModalContent>
+    Do you really want to delete your account?
+  </ng-container>
+  <ng-container *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleDeleteCancel()">
+      Cancel
+    </button>
+    <button nz-button nzType="default" nzDanger (click)="deleteAccount()">
+      Delete
+    </button>
+  </ng-container>
+</nz-modal>

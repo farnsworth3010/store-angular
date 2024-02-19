@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { apiUrl } from '../constants/apiUrl';
@@ -33,4 +33,11 @@ export class AuthService {
       token: this.getToken(),
     });
   }
+  canActivate(): boolean {
+    return this.authorizedSubject.getValue();
+  }
 }
+
+export const authGuard: CanActivateFn = () => {
+  return inject(AuthService).canActivate();
+};

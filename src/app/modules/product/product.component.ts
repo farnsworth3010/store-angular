@@ -16,9 +16,15 @@ import { FormsModule } from '@angular/forms';
 import { ColorsComponent } from '../../shared/colors/colors.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { Product } from '../../core/interfaces/product';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgTemplateOutlet } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ShopService } from '../../core/services/shop.service';
+import {
+  NzCommentActionComponent,
+  NzCommentComponent,
+  NzCommentModule,
+} from 'ng-zorro-antd/comment';
+import { NzAvatarComponent } from 'ng-zorro-antd/avatar';
 
 @Component({
   selector: 'app-product',
@@ -36,6 +42,11 @@ import { ShopService } from '../../core/services/shop.service';
     ColorsComponent,
     NzButtonComponent,
     CurrencyPipe,
+    NzCommentComponent,
+    NzAvatarComponent,
+    NzCommentActionComponent,
+    NgTemplateOutlet,
+    NzCommentModule,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
@@ -50,6 +61,41 @@ export class ProductComponent implements OnInit {
   ) {}
   data: Product | null = null;
   currentImage: string | null | undefined = null;
+  commentData = {
+    author: 'Han Solo',
+    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+    content:
+      'We supply a series of design principles, practical patterns and high quality design resources' +
+      '(Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+    children: [
+      {
+        author: 'Han Solo',
+        avatar:
+          'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+        content:
+          'We supply a series of design principles, practical patterns and high quality design resources' +
+          '(Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+        children: [
+          {
+            author: 'Han Solo',
+            avatar:
+              'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            content:
+              'We supply a series of design principles, practical patterns and high quality design resources' +
+              '(Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+          },
+          {
+            author: 'Han Solo',
+            avatar:
+              'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            content:
+              'We supply a series of design principles, practical patterns and high quality design resources' +
+              '(Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+          },
+        ],
+      },
+    ],
+  };
   ngOnInit() {
     window.scrollTo({
       top: 0,

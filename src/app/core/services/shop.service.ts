@@ -10,6 +10,7 @@ import {
   SignUpData,
   SignUpResponse,
 } from '../interfaces/user';
+import { Category } from '../interfaces/categories';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +52,16 @@ export class ShopService {
   signUp(signUpData: SignUpData): Observable<SignUpResponse> {
     return this.http.post<SignUpResponse>(apiUrl + `/auth/sign-up`, {
       ...signUpData,
+    });
+  }
+
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(apiUrl + '/categories/');
+  }
+
+  getProductsByName(name: string): Observable<ResponseProduct> {
+    return this.http.post<ResponseProduct>(apiUrl + '/product/search', {
+      name,
     });
   }
 }

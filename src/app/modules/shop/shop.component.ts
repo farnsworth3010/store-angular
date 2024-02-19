@@ -14,13 +14,14 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShopService } from '../../core/services/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzEmptyComponent } from 'ng-zorro-antd/empty';
 import { Product, ResponseProduct } from '../../core/interfaces/product';
-import { delay } from 'rxjs';
+import { debounceTime, delay } from 'rxjs';
 import { NzSpinComponent } from 'ng-zorro-antd/spin';
+import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'app-shop',
@@ -39,6 +40,9 @@ import { NzSpinComponent } from 'ng-zorro-antd/spin';
     FormsModule,
     NzEmptyComponent,
     NzSpinComponent,
+    NzInputGroupComponent,
+    ReactiveFormsModule,
+    NzInputDirective,
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
@@ -56,6 +60,8 @@ export class ShopComponent implements OnInit {
   page: number = 1;
   pageSize: number = 20;
   fetching: boolean = true;
+
+  searchControl = new FormControl('');
   ngOnInit() {
     this.shop
       .getProducts(this.page, this.pageSize)
@@ -65,6 +71,34 @@ export class ShopComponent implements OnInit {
         this.data = res.data;
         this.total = res.total;
         this.changeDetector.markForCheck();
+      });
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
+      .subscribe((value: string | null) => {
+        if (value) {
+          this.fetching = true;
+          this.changeDetector.markForCheck();
+          this.shop
+            .getProductsByName(value)
+            .pipe(takeUntilDestroyed(this.destroyRef), delay(300))
+            .subscribe((res: ResponseProduct) => {
+              this.data = res.data;
+              this.changeDetector.markForCheck();
+              this.fetching = false;
+            });
+        } else {
+          this.fetching = true;
+          this.changeDetector.markForCheck();
+          this.shop
+            .getProducts(this.page, this.pageSize)
+            .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
+            .subscribe((res: ResponseProduct) => {
+              this.fetching = false;
+              this.data = res.data;
+              this.total = res.total;
+              this.changeDetector.markForCheck();
+            });
+        }
       });
   }
 

@@ -8,15 +8,16 @@
   </div>
   <div class="actions">
     @if (showSignOut) {
-      <li class="profile-block" (click)="signOut()">
+      <li class="profile-block">
         <button
+          routerLink="/account"
           class="circle-button"
           nz-button
           nzType="primary"
           nzShape="circle">
           <span nz-icon nzType="user"></span>
         </button>
-        Sign out
+        <div (click)="signOut()">Sign out</div>
       </li>
     } @else {
       <li class="profile-block" (click)="showModal()">

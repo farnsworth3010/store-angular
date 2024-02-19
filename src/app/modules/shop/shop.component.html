@@ -7,12 +7,27 @@
   <div class="products-container">
     <div class="actions">
       <div class="select-container">
-        <p>Sort by:</p>
-        <nz-select ngModel="Popularity" nzSize="large">
-          <nz-option nzValue="Popularity" nzLabel="Popularity"></nz-option>
-          <nz-option nzValue="Price" nzLabel="Price"></nz-option>
-          <nz-option nzValue="Last added" nzLabel="Last added"></nz-option>
-        </nz-select>
+        <div class="sort">
+          <p>Sort by:</p>
+          <nz-select ngModel="Popularity" nzSize="large">
+            <nz-option nzValue="Popularity" nzLabel="Popularity"></nz-option>
+            <nz-option nzValue="Price" nzLabel="Price"></nz-option>
+            <nz-option nzValue="Last added" nzLabel="Last added"></nz-option>
+          </nz-select>
+        </div>
+        <div class="search">
+          <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input
+              [formControl]="searchControl"
+              type="text"
+              nz-input
+              spellcheck="false"
+              placeholder="input search text" />
+          </nz-input-group>
+          <ng-template #suffixIconSearch>
+            <span nz-icon nzType="search"></span>
+          </ng-template>
+        </div>
       </div>
       <div class="change-view-container">
         <button
@@ -34,10 +49,10 @@
       </div>
     </div>
     <div>
-      <div class="products-grid" [class.list]="viewType === 'list'">
-        @if (fetching) {
-          <nz-spin nzSize="large" nzSimple></nz-spin>
-        } @else {
+      @if (fetching) {
+        <nz-spin nzSize="large" nzSimple></nz-spin>
+      } @else {
+        <div class="products-grid" [class.list]="viewType === 'list'">
           @for (product of data; track product.ID) {
             <app-product
               imageType="wide"
@@ -45,12 +60,13 @@
               [showColors]="viewType === 'list'"
               [showSizes]="viewType === 'list'"
               [data]="product" />
-          } @empty {
-            <nz-empty />
           }
-        }
-      </div>
+        </div>
+      }
       @if (!fetching) {
+        @if (!data?.length) {
+          <nz-empty />
+        }
         <nz-pagination
           [nzPageIndex]="page + 1"
           [nzPageSize]="20"

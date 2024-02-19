@@ -11,13 +11,9 @@
         <nz-collapse-panel
           [nzExtra]="extraTpl"
           nzShowArrow="false"
-          [nzHeader]="category.title"
-          [nzActive]="category.active">
+          [nzHeader]="category.name">
           <ul class="options">
             <li>View all</li>
-            @for (option of category.options; track option) {
-              <li>{{ option }}</li>
-            }
           </ul>
         </nz-collapse-panel>
       }

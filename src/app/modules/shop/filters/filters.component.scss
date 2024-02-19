@@ -4,7 +4,9 @@
   top: 50%;
   transform: translateY(-50%);
 }
-
+:host {
+  margin-bottom: 3rem;
+}
 .options {
   list-style: none;
   font-size: 0.9rem;
