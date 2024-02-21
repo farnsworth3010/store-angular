@@ -2,7 +2,11 @@
   <app-header [fixed]="true" />
 </nz-header>
 <div class="blog-container">
-  <app-new-post (formSubmit)="submitPost($event)" [sending]="sending" />
+  <ng-container appOnlyAdmins #access="access">
+    @if (access.user.userInfo.getValue()?.role_id === 1) {
+      <app-new-post (formSubmit)="submitPost($event)" [sending]="sending" />
+    }
+  </ng-container>
   <div class="posts">
     @if (fetching) {
       <nz-card>

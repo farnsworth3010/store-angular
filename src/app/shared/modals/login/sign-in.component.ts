@@ -17,8 +17,9 @@ import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { ShopService } from '../../../core/services/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { JWTToken } from '../../../core/interfaces/user';
+import { JWTToken, User } from '../../../core/interfaces/user';
 import { delay, Observable } from 'rxjs';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -43,7 +44,8 @@ export class SignInComponent {
   constructor(
     private fb: FormBuilder,
     private shop: ShopService,
-    private destroyRef: DestroyRef
+    private destroyRef: DestroyRef,
+    private userService: UserService
   ) {}
   submitForm(): Observable<string> {
     return new Observable<string>(subscriber => {
@@ -54,6 +56,9 @@ export class SignInComponent {
           .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
           .subscribe((res: JWTToken) => {
             subscriber.next(res.token);
+            this.userService.getUserInfo().subscribe((user: User) => {
+              this.userService.userInfo.next(user);
+            });
           });
       }
       subscriber.next('');

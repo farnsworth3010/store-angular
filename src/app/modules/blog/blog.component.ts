@@ -17,6 +17,7 @@ import { NzSkeletonComponent } from 'ng-zorro-antd/skeleton';
 import { delay } from 'rxjs';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 import { NewPostComponent } from './new-post/new-post.component';
+import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive';
 
 @Component({
   selector: 'app-blog',
@@ -30,6 +31,7 @@ import { NewPostComponent } from './new-post/new-post.component';
     NzSkeletonComponent,
     NzPaginationComponent,
     NewPostComponent,
+    OnlyAdminsDirective,
   ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss',

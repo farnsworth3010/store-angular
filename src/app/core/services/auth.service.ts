@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CanActivateFn, Router } from '@angular/router';
-import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
-import { apiUrl } from '../constants/apiUrl';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +10,8 @@ import { apiUrl } from '../constants/apiUrl';
 export class AuthService {
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) {}
   public authorizedSubject = new BehaviorSubject<boolean>(false);
   public authorized: Observable<boolean> =
@@ -24,14 +24,10 @@ export class AuthService {
     localStorage.removeItem('access_token');
     this.authorizedSubject.next(false);
     this.router.navigateByUrl('/');
+    this.userService.userInfo.next(null);
   }
   getToken(): string | null {
     return localStorage.getItem('access_token');
-  }
-  getUserInfo(): Observable<User> {
-    return this.http.post<User>(apiUrl + '/auth/info', {
-      token: this.getToken(),
-    });
   }
   canActivate(): boolean {
     return this.authorizedSubject.getValue();

@@ -17,6 +17,7 @@ import {
   NzModalContentDirective,
   NzModalFooterDirective,
 } from 'ng-zorro-antd/modal';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-account',
@@ -39,12 +40,13 @@ import {
 export class AccountComponent implements OnInit {
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private changeDetector: ChangeDetectorRef
   ) {}
   userInfo: User | null = null;
   isDeleteModalVisible: boolean = false;
   ngOnInit() {
-    this.authService.getUserInfo().subscribe((res: User) => {
+    this.userService.getUserInfo().subscribe((res: User) => {
       this.userInfo = res;
       this.changeDetector.markForCheck();
     });

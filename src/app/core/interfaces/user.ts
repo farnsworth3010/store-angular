@@ -3,7 +3,10 @@ export interface User {
   firstname: string;
   phoneNumber: string;
   ID: number;
+  role_id: number;
 }
+
+export interface Role {}
 
 export interface SignInData {
   email: string;
