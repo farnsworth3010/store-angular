@@ -28,6 +28,7 @@ import { NzFooterComponent } from 'ng-zorro-antd/layout';
 import { SignUpComponent } from '../modals/sign-up/sign-up.component';
 import { AuthService } from '../../core/services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -97,22 +98,38 @@ export class HeaderComponent implements OnInit {
     this.isModalVisible = false;
   }
   handleOk(): void {
+    this.isOkLoading = true;
+    this.changeDetector.markForCheck();
     if (this.showSignUp) {
-      this.isOkLoading = true;
-      this.signInForm.submitForm().subscribe((token: string) => {
-        this.isOkLoading = false;
-        if (token) {
-          this.authService.saveToken(token);
-          this.isModalVisible = false;
-          this.changeDetector.markForCheck();
-        }
-      });
+      this.signInForm
+        .submitForm()
+        .pipe(delay(500))
+        .subscribe({
+          next: (token: string) => {
+            if (token) {
+              this.isModalVisible = false;
+              this.authService.saveToken(token);
+              this.changeDetector.markForCheck();
+            }
+          },
+          error: () => {
+            this.isOkLoading = false;
+            this.changeDetector.markForCheck();
+          },
+        });
     } else {
-      this.signUpForm.submitForm().subscribe((id: number) => {
-        if (id) {
-          this.showSignUp = true;
+      this.signUpForm.submitForm().subscribe({
+        next: (id: number) => {
+          if (id) {
+            this.showSignUp = true;
+          }
+          this.isOkLoading = false;
           this.changeDetector.markForCheck();
-        }
+        },
+        error: () => {
+          this.isOkLoading = false;
+          this.changeDetector.markForCheck();
+        },
       });
     }
   }

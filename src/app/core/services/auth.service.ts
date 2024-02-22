@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CanActivateFn, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +9,7 @@ import { UserService } from './user.service';
 export class AuthService {
   constructor(
     private router: Router,
-    private http: HttpClient,
-    private userService: UserService
+    private http: HttpClient
   ) {}
   public authorizedSubject = new BehaviorSubject<boolean>(false);
   public authorized: Observable<boolean> =
@@ -24,8 +22,8 @@ export class AuthService {
     localStorage.removeItem('access_token');
     this.authorizedSubject.next(false);
     this.router.navigateByUrl('/');
-    this.userService.userInfo.next(null);
   }
+  deleteUser(): void {}
   getToken(): string | null {
     return localStorage.getItem('access_token');
   }

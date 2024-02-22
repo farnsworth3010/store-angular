@@ -60,5 +60,9 @@ export class AccountComponent implements OnInit {
   handleDeleteCancel(): void {
     this.isDeleteModalVisible = false;
   }
-  deleteAccount(): void {}
+  deleteAccount(): void {
+    this.userService.deleteUser().subscribe(() => {
+      this.signOut();
+    });
+  }
 }

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, DestroyRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+} from '@angular/core';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import {
   NzFormControlComponent,
@@ -17,9 +22,11 @@ import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { ShopService } from '../../../core/services/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { JWTToken, User } from '../../../core/interfaces/user';
+import { JWTToken } from '../../../core/interfaces/user';
+
 import { delay, Observable } from 'rxjs';
 import { UserService } from '../../../core/services/user.service';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'app-sign-in',
@@ -35,6 +42,7 @@ import { UserService } from '../../../core/services/user.service';
     NzCheckboxComponent,
     NzColDirective,
     NzRowDirective,
+    NzAlertComponent,
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
@@ -45,8 +53,10 @@ export class SignInComponent {
     private fb: FormBuilder,
     private shop: ShopService,
     private destroyRef: DestroyRef,
-    private userService: UserService
+    private userService: UserService,
+    private changeDetector: ChangeDetectorRef
   ) {}
+  failedSignIn: boolean = false;
   submitForm(): Observable<string> {
     return new Observable<string>(subscriber => {
       if (this.validateForm.valid) {
@@ -54,11 +64,15 @@ export class SignInComponent {
         this.shop
           .signIn({ email: email!, password: password! })
           .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-          .subscribe((res: JWTToken) => {
-            subscriber.next(res.token);
-            this.userService.getUserInfo().subscribe((user: User) => {
-              this.userService.userInfo.next(user);
-            });
+          .subscribe({
+            next: (res: JWTToken) => {
+              subscriber.next(res.token);
+            },
+            error: () => {
+              this.failedSignIn = true;
+              this.changeDetector.markForCheck();
+              subscriber.error();
+            },
           });
       }
       subscriber.next('');

@@ -65,8 +65,7 @@
   [nzTitle]="showSignUp ? 'Sign in' : 'Sign up'"
   nzCancelText="Later"
   (nzOnCancel)="handleCancel()"
-  nzCentered
-  [nzOkLoading]="isOkLoading">
+  nzCentered>
   <div *nzModalContent>
     @if (showSignUp) {
       <app-sign-in #signIn />

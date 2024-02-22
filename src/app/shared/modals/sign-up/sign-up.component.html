@@ -50,7 +50,7 @@
       <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
         <ng-template #addOnBeforeTemplate>
           <nz-select formControlName="phoneNumberPrefix" class="phone-select">
-            <nz-option nzLabel="+375" nzValue="+86"></nz-option>
+            <nz-option nzLabel="+375" nzValue="+375"></nz-option>
           </nz-select>
         </ng-template>
         <input
@@ -63,7 +63,7 @@
   </nz-form-item>
 
   <nz-form-item nz-row class="register-area">
-    <nz-form-control>
+    <nz-form-control nzErrorTip="You must agree">
       <label nz-checkbox formControlName="agree">
         <span>
           I have read the

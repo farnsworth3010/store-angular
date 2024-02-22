@@ -8,7 +8,11 @@
     by Admin
   </p>
 </nz-card>
-<ng-template #blogAdmin>
-  <a>Edit </a>
-  <a (click)="deleteBlogHandle()">Delete</a>
-</ng-template>
+<ng-container appOnlyAdmins #access="access">
+  <ng-template #blogAdmin>
+    @if (access.user.userInfo.getValue()?.role_id === 1) {
+      <a>Edit </a>
+      <a (click)="deleteBlogHandle()">Delete</a>
+    }
+  </ng-template>
+</ng-container>

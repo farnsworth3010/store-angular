@@ -10,11 +10,18 @@ import { BlogPost } from '../../../core/interfaces/blogPost';
 import { DatePipe } from '@angular/common';
 import { MarkdownComponent } from 'ngx-markdown';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { OnlyAdminsDirective } from '../../../core/directives/only-admins.directive';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [NzCardComponent, DatePipe, MarkdownComponent, NzDividerComponent],
+  imports: [
+    NzCardComponent,
+    DatePipe,
+    MarkdownComponent,
+    NzDividerComponent,
+    OnlyAdminsDirective,
+  ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -54,7 +54,7 @@ export class SignUpComponent {
     email: FormControl<string>;
     password: FormControl<string>;
     checkPassword: FormControl<string>;
-    phoneNumberPrefix: FormControl<'+86' | '+87'>;
+    phoneNumberPrefix: FormControl<'+375'>;
     phoneNumber: FormControl<string>;
     agree: FormControl<boolean>;
     firstname: FormControl<string>;
@@ -63,13 +63,23 @@ export class SignUpComponent {
     return new Observable<number>(subscriber => {
       if (this.validateForm.valid && this.validateForm.getRawValue().agree) {
         console.log('submit', this.validateForm.value);
-        const { email, password, phoneNumber, firstname } =
+        const { email, password, phoneNumber, phoneNumberPrefix, firstname } =
           this.validateForm.getRawValue();
         this.shop
-          .signUp({ email, password, phoneNumber, firstname })
+          .signUp({
+            email,
+            password,
+            phoneNumber: phoneNumberPrefix + phoneNumber,
+            firstname,
+          })
           .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-          .subscribe((res: SignUpResponse) => {
-            subscriber.next(res.id);
+          .subscribe({
+            next: (res: SignUpResponse) => {
+              subscriber.next(res.id);
+            },
+            error: () => {
+              subscriber.error();
+            },
           });
       } else {
         subscriber.next(0);
@@ -138,9 +148,9 @@ export class SignUpComponent {
         ],
       ],
       firstname: ['', [Validators.required]],
-      phoneNumberPrefix: '+86' as '+86' | '+87',
+      phoneNumberPrefix: '+375',
       phoneNumber: ['', [Validators.required]],
-      agree: [false],
+      agree: [false, [Validators.requiredTrue]],
     });
   }
 }
