@@ -108,6 +108,7 @@ export class HeaderComponent implements OnInit {
           next: (token: string) => {
             if (token) {
               this.isModalVisible = false;
+              this.isOkLoading = false;
               this.authService.saveToken(token);
               this.changeDetector.markForCheck();
             }
