@@ -63,7 +63,7 @@ export class SignInComponent {
         const { email, password } = this.validateForm.getRawValue();
         this.shop
           .signIn({ email: email!, password: password! })
-          .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
+          .pipe(takeUntilDestroyed(this.destroyRef), delay(500))
           .subscribe({
             next: (res: JWTToken) => {
               subscriber.next(res.token);
@@ -74,8 +74,15 @@ export class SignInComponent {
               subscriber.error();
             },
           });
+      } else {
+        Object.values(this.validateForm.controls).forEach(control => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
+        subscriber.next('');
       }
-      subscriber.next('');
     });
   }
   validateForm: FormGroup<{
@@ -84,7 +91,7 @@ export class SignInComponent {
     remember: FormControl<boolean | null>;
   }> = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(8)]],
     remember: [true],
   });
 }

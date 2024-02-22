@@ -77,7 +77,6 @@ export class BlogComponent implements OnInit {
           });
           this.posts = newPosts;
         }
-        console.log('New post id: ' + res.id);
         this.sending = false;
         this.changeDetector.markForCheck();
       });

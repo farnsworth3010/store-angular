@@ -63,7 +63,6 @@ export class FiltersComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res: Category[]) => {
         this.categories = res;
-        console.log(res);
         this.changeDetector.markForCheck();
       });
   }

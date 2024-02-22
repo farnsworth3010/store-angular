@@ -62,7 +62,6 @@ export class SignUpComponent {
   submitForm(): Observable<number> {
     return new Observable<number>(subscriber => {
       if (this.validateForm.valid && this.validateForm.getRawValue().agree) {
-        console.log('submit', this.validateForm.value);
         const { email, password, phoneNumber, phoneNumberPrefix, firstname } =
           this.validateForm.getRawValue();
         this.shop
@@ -72,7 +71,7 @@ export class SignUpComponent {
             phoneNumber: phoneNumberPrefix + phoneNumber,
             firstname,
           })
-          .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
+          .pipe(takeUntilDestroyed(this.destroyRef), delay(500))
           .subscribe({
             next: (res: SignUpResponse) => {
               subscriber.next(res.id);

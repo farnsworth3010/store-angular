@@ -15,9 +15,6 @@ export const authInit = () => {
           next: (user: User) => {
             userService.userInfo.next(user);
           },
-          error: err => {
-            console.log(err);
-          },
         });
       }
       subscriber.complete();

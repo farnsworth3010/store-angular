@@ -92,6 +92,7 @@ export class HeaderComponent implements OnInit {
   }
   toggleRegistered(): void {
     this.showSignUp = !this.showSignUp;
+    this.isOkLoading = false;
     this.changeDetector.markForCheck();
   }
   handeCancel(): void {
@@ -108,10 +109,12 @@ export class HeaderComponent implements OnInit {
           next: (token: string) => {
             if (token) {
               this.isModalVisible = false;
-              this.isOkLoading = false;
               this.authService.saveToken(token);
-              this.changeDetector.markForCheck();
+            } else {
+              this.signInForm.validateForm.updateValueAndValidity();
             }
+            this.isOkLoading = false;
+            this.changeDetector.markForCheck();
           },
           error: () => {
             this.isOkLoading = false;
