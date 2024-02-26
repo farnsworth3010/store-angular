@@ -1,1 +1,54 @@
-<div class="container">fds</div>
+<div class="container">
+  <nz-card nzTitle="Admin panel">
+    <nz-tabset nzLinkRouter>
+      <nz-tab>
+        <a
+          *nzTabLink
+          nz-tab-link
+          [routerLink]="['.']"
+          [queryParams]="{ tab: 'products' }"
+          queryParamsHandling="merge">
+          Products
+        </a>
+        <ng-template nz-tab>
+          <app-products />
+        </ng-template>
+      </nz-tab>
+      <nz-tab>
+        <a
+          *nzTabLink
+          nz-tab-link
+          [routerLink]="['.']"
+          [queryParams]="{ tab: 'admins' }"
+          queryParamsHandling="merge">
+          Admins
+        </a>
+        <ng-template nz-tab>
+          <app-admins />
+        </ng-template>
+      </nz-tab>
+      <nz-tab>
+        <a
+          *nzTabLink
+          nz-tab-link
+          [routerLink]="['.']"
+          [queryParams]="{ tab: 'users' }"
+          queryParamsHandling="merge">
+          Users
+        </a>
+        Two.
+      </nz-tab>
+      <nz-tab>
+        <a
+          *nzTabLink
+          nz-tab-link
+          [routerLink]="['.']"
+          [queryParams]="{ tab: 'Blog' }"
+          queryParamsHandling="merge">
+          Blog
+        </a>
+        Two.
+      </nz-tab>
+    </nz-tabset>
+  </nz-card>
+</div>

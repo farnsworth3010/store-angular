@@ -6,7 +6,11 @@
     <li routerLinkActive="active" routerLink="/account">Account</li>
     <ng-container appOnlyAdmins #access="access">
       @if (access.user.userInfo.getValue()?.role_id === 1) {
-        <li class="admin" routerLinkActive="active" routerLink="/admin">
+        <li
+          class="admin"
+          routerLinkActive="active"
+          routerLink="/admin"
+          [queryParams]="{ tab: 'products' }">
           Admin
         </li>
       }
