@@ -14,8 +14,10 @@ export class AuthService {
   public authorizedSubject = new BehaviorSubject<boolean>(false);
   public authorized: Observable<boolean> =
     this.authorizedSubject.asObservable();
-  saveToken(token: string) {
-    localStorage.setItem('access_token', token);
+  saveToken(token: string, temp: boolean) {
+    if (!temp) {
+      localStorage.setItem('access_token', token);
+    }
     this.authorizedSubject.next(true);
   }
   signOut(): void {

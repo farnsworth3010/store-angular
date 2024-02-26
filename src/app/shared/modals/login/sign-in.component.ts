@@ -92,6 +92,6 @@ export class SignInComponent {
   }> = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
-    remember: [true],
+    remember: [false],
   });
 }

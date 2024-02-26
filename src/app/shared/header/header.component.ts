@@ -109,7 +109,10 @@ export class HeaderComponent implements OnInit {
           next: (token: string) => {
             if (token) {
               this.isModalVisible = false;
-              this.authService.saveToken(token);
+              this.authService.saveToken(
+                token,
+                !this.signInForm.validateForm.getRawValue().remember
+              );
             } else {
               this.signInForm.validateForm.updateValueAndValidity();
             }
