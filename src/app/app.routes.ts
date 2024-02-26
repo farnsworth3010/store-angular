@@ -26,6 +26,12 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'admin',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./modules/admin/admin.component').then(m => m.AdminComponent),
+  },
+  {
     path: 'product/:id',
     loadComponent: () =>
       import('./modules/product/product.component').then(

@@ -17,7 +17,12 @@ import {
 } from 'ng-zorro-antd/drawer';
 import { NavLink } from '../../core/interfaces/navLink';
 import { NavLinks } from '../../core/constants/navLinks';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  RouterLink,
+  RouterLinkActive,
+  Router,
+  NavigationStart,
+} from '@angular/router';
 import {
   NzModalComponent,
   NzModalContentDirective,
@@ -29,6 +34,7 @@ import { SignUpComponent } from '../modals/sign-up/sign-up.component';
 import { AuthService } from '../../core/services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay } from 'rxjs';
+import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive';
 
 @Component({
   selector: 'app-header',
@@ -46,6 +52,7 @@ import { delay } from 'rxjs';
     NzFooterComponent,
     NzModalFooterDirective,
     SignUpComponent,
+    OnlyAdminsDirective,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -62,7 +69,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private changeDetector: ChangeDetectorRef,
     public authService: AuthService,
-    private destroyRef: DestroyRef
+    private destroyRef: DestroyRef,
+    private router: Router
   ) {}
   @Input({ required: true }) fixed: boolean = true;
   @HostBinding('class.fixed') get isFixed() {
@@ -77,6 +85,15 @@ export class HeaderComponent implements OnInit {
         this.showSignOut = authorized;
         this.changeDetector.markForCheck();
       });
+    this.router.events.forEach(event => {
+      if (event instanceof NavigationStart) {
+        if (event.url === '/home') {
+          this.fixed = false;
+          return;
+        }
+        this.fixed = true;
+      }
+    });
   }
   signOut(): void {
     this.authService.signOut();
