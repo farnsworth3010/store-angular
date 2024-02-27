@@ -1,28 +1,35 @@
-<ul nz-list [nzDataSource]="data!" nzBordered nzSize="small">
-  <nz-list-header
-    >Products
-    <div class="search">
-      <nz-input-group [nzSuffix]="suffixIconSearch">
-        <input
-          [formControl]="searchControl"
-          type="text"
-          nz-input
-          spellcheck="false"
-          placeholder="input search text" />
-      </nz-input-group>
-      <ng-template #suffixIconSearch>
-        <span nz-icon nzType="search"></span>
-      </ng-template>
-    </div>
-  </nz-list-header>
-  <table id="products-table">
+<div class="search">
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <input
+      [formControl]="searchControl"
+      type="text"
+      nz-input
+      spellcheck="false"
+      placeholder="Input search text" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+</div>
+<nz-table
+  [nzPageSize]="50"
+  [nzPageIndex]="page + 1"
+  nzSize="small"
+  [nzData]="data!">
+  <thead>
     <tr>
+      <th nzWidth="60px">ID</th>
       <th>Title</th>
       <th>Price</th>
-      <th>Actions</th>
+      <th nzWidth="7rem">Actions</th>
     </tr>
+  </thead>
+  <tbody>
     @for (product of data; track product) {
       <tr>
+        <td>
+          {{ product.ID }}
+        </td>
         <td>
           {{ product.title }}
         </td>
@@ -32,25 +39,34 @@
         <td class="actions">
           <div class="actions-container">
             <span
+              [routerLink]="['/product', product.ID.toString()]"
+              aria-label="dsf"
+              nz-icon
+              nzType="eye"
+              nz-tooltip
+              nzTooltipTitle="View"
+              nzTheme="outline"></span>
+            <span
               class="edit-icon icon"
               nz-icon
               nzType="edit"
+              nz-tooltip
+              nzTooltipTitle="Edit"
               nzTheme="outline"></span>
             <span
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure delete this product?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="deleteProduct(product.ID)"
               class="delete-icon icon"
               nz-icon
+              nz-tooltip
+              nzTooltipTitle="Delete"
               nzType="delete"
               nzTheme="outline"></span>
           </div>
         </td>
       </tr>
     }
-  </table>
-  <nz-list-footer>
-    <nz-pagination
-      [nzPageIndex]="page + 1"
-      [nzTotal]="total"
-      nzShowSizeChanger
-      [nzPageSize]="pageSize"></nz-pagination>
-  </nz-list-footer>
-</ul>
+  </tbody>
+</nz-table>

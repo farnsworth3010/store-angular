@@ -1,0 +1,19 @@
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nz-table {
+  border: 1px solid #cecece;
+}
+
+.role {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demote {
+  cursor: pointer;
+}

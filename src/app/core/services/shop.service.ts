@@ -28,7 +28,9 @@ export class ShopService {
   getLatestProduct(): Observable<ResponseProduct> {
     return this.http.get<ResponseProduct>(apiUrl + '/product/latest');
   }
-
+  deleteProduct(ID: number): Observable<void> {
+    return this.http.delete<void>(apiUrl + '/product/' + ID);
+  }
   getBlog(page: number, limit: number): Observable<ResponseBlogPost> {
     return this.http.get<ResponseBlogPost>(
       apiUrl + `/blog/?page=${page}&limit=${limit}`

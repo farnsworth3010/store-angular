@@ -1,1 +1,94 @@
-<p>users works!</p>
+<nz-table [nzShowPagination]="false" nzSize="small" [nzData]="data!">
+  <thead>
+    <tr>
+      <th nzWidth="60px">ID</th>
+      <th>E-Mail</th>
+      <th>firstname</th>
+      <th>phone</th>
+      <th nzWidth="1rem">actions</th>
+      <th nzWidth="1rem">role</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (user of data; track user) {
+      <tr>
+        <td>
+          {{ user.ID }}
+        </td>
+        <td>
+          {{ user.email }}
+        </td>
+        <td>
+          {{ user.firstname }}
+        </td>
+        <td>
+          <a [href]="'tel:' + user.phoneNumber">{{ user.phoneNumber }}</a>
+        </td>
+        <td class="actions">
+          <div class="actions-container">
+            @switch (user.role_id) {
+              @case (1) {
+                @if (userInfo.userInfo.getValue()?.ID !== user.ID) {
+                  <span
+                    class="demote"
+                    nz-popconfirm
+                    nzPopconfirmTitle="Are you sure demote this administrator?"
+                    nzPopconfirmPlacement="bottom"
+                    (nzOnConfirm)="setRole(user.ID, 2)"
+                    nz-tooltip
+                    nzTooltipTitle="Demote the administrator"
+                    nz-icon
+                    nzType="arrow-down"
+                    nzTheme="outline"></span>
+                } @else {
+                  <span
+                    class="demote"
+                    nz-tooltip
+                    nzTooltipTitle="You can't demote yourself"
+                    nz-icon
+                    nzType="arrow-down"
+                    nzTheme="outline"></span>
+                }
+              }
+              @case (2) {
+                <span
+                  class="demote"
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure assign this administrator?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="setRole(user.ID, 1)"
+                  nz-tooltip
+                  nzTooltipTitle="Assign as administrator"
+                  nz-icon
+                  nzType="arrow-up"
+                  nzTheme="outline"></span>
+              }
+            }
+          </div>
+        </td>
+        <td>
+          <div class="role">
+            @switch (user.role_id) {
+              @case (1) {
+                <span
+                  nz-tooltip
+                  nzTooltipTitle="Administrator"
+                  nz-icon
+                  nzType="star"
+                  nzTheme="outline"></span>
+              }
+              @case (2) {
+                <span
+                  nz-tooltip
+                  nzTooltipTitle="Client"
+                  nz-icon
+                  nzType="user"
+                  nzTheme="outline"></span>
+              }
+            }
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</nz-table>

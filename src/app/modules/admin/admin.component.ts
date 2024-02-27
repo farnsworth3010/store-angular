@@ -11,6 +11,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { RouterLink } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
 import { AdminsComponent } from './admins/admins.component';
+import { UsersComponent } from './users/users.component';
+import { BlogComponent } from './blog/blog.component';
 
 @Component({
   selector: 'app-admin',
@@ -31,6 +33,8 @@ import { AdminsComponent } from './admins/admins.component';
     RouterLink,
     ProductsComponent,
     AdminsComponent,
+    UsersComponent,
+    BlogComponent,
   ],
 })
 export class AdminComponent {}

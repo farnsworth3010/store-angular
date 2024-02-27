@@ -3,7 +3,9 @@
     <li routerLinkActive="active" routerLink="/home">Home</li>
     <li routerLinkActive="active" routerLink="/shop">Shop</li>
     <li routerLinkActive="active" routerLink="/blog">Blog</li>
-    <li routerLinkActive="active" routerLink="/account">Account</li>
+    @if (authService.authorizedSubject | async) {
+      <li routerLinkActive="active" routerLink="/account">Account</li>
+    }
     <ng-container appOnlyAdmins #access="access">
       @if (access.user.userInfo.getValue()?.role_id === 1) {
         <li
@@ -17,33 +19,28 @@
     </ng-container>
   </div>
   <div class="actions">
+    @if (authService.authorizedSubject | async) {
+      <button
+        routerLink="/account"
+        class="circle-button"
+        nz-button
+        nzType="primary"
+        nzShape="circle">
+        <span nz-icon nzType="user"></span>
+      </button>
+    }
     @if (showSignOut) {
       <li class="profile-block">
-        <button
-          routerLink="/account"
-          class="circle-button"
-          nz-button
-          nzType="primary"
-          nzShape="circle">
-          <span nz-icon nzType="user"></span>
-        </button>
         <div (click)="signOut()">Sign out</div>
       </li>
     } @else {
-      <li class="profile-block" (click)="showModal()">
-        <button
-          class="circle-button"
-          nz-button
-          nzType="primary"
-          nzShape="circle">
-          <span nz-icon nzType="user"></span>
-        </button>
-        Sign in/up
+      <li class="profile-block" (click)="showModal()">Sign in/up</li>
+    }
+    @if (authService.authorizedSubject | async) {
+      <li class="saved">
+        <span nz-icon nzType="heart" nzTheme="outline"></span>
       </li>
     }
-    <li class="saved">
-      <span nz-icon nzType="heart" nzTheme="outline"></span>
-    </li>
     <li class="cart">
       <button class="circle-button" nz-button nzType="primary" nzShape="circle">
         <span nz-icon nzType="shopping-cart"></span>

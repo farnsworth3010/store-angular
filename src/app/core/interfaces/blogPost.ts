@@ -6,6 +6,14 @@ export interface BlogPost {
   text: string;
 }
 
+export type ShortBlogPost = Omit<BlogPost, 'text'>;
+
+export interface ResponseShortBlogPost {
+  data: ShortBlogPost[];
+  page: number;
+  total: number;
+}
+
 export interface ResponseBlogPost {
   data: BlogPost[];
   page: number;

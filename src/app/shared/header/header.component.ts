@@ -35,6 +35,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay } from 'rxjs';
 import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -53,6 +54,7 @@ import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive
     NzModalFooterDirective,
     SignUpComponent,
     OnlyAdminsDirective,
+    AsyncPipe,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -87,7 +89,7 @@ export class HeaderComponent implements OnInit {
       });
     this.router.events.forEach(event => {
       if (event instanceof NavigationStart) {
-        if (event.url === '/home') {
+        if (['/home', '/'].includes(event.url)) {
           this.fixed = false;
           return;
         }

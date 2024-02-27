@@ -1,0 +1,15 @@
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+}
+
+nz-table {
+  margin-top: 1rem;
+  border: 1px solid #cecece;
+}

@@ -1,0 +1,31 @@
+.edit-icon {
+  color: rgb(105, 105, 255);
+}
+.delete-icon {
+  color: red;
+}
+
+nz-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nz-table {
+  border: 1px solid #cecece;
+}
+
+.role {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.demote {
+  cursor: pointer;
+}

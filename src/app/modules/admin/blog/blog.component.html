@@ -1,1 +1,54 @@
-<p>blog works!</p>
+<app-new-post (formSubmit)="submitPost($event)" [sending]="sending" />
+<nz-table [nzShowPagination]="false" nzSize="small" [nzData]="data!">
+  <thead>
+    <tr>
+      <th nzWidth="60px">ID</th>
+      <th>title</th>
+      <th nzWidth="7rem">actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (blog of data; track blog) {
+      <tr>
+        <td>
+          {{ blog.ID }}
+        </td>
+        <td>
+          {{ blog.title }}
+        </td>
+        <td class="actions">
+          <div class="actions-container">
+            <span
+              [routerLink]="['/blog']"
+              [fragment]="blog.ID.toString()"
+              aria-label="dsf"
+              nz-icon
+              nzType="eye"
+              nz-tooltip
+              nzTooltipTitle="View"
+              nzTheme="outline"></span>
+            <span
+              rout
+              class="edit-icon icon"
+              nz-icon
+              nzType="edit"
+              nz-tooltip
+              nzTooltipTitle="Edit"
+              nzTheme="outline"></span>
+            <span
+              class="delete-icon icon"
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure delete this post?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="deleteBlog(blog.ID)"
+              nz-icon
+              nz-tooltip
+              nzTooltipTitle="Delete"
+              nzType="delete"
+              nzTheme="outline"></span>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</nz-table>

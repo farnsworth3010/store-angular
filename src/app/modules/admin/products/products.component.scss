@@ -1,14 +1,8 @@
-.edit-icon {
-  color: rgb(105, 105, 255);
-}
 .delete-icon {
   color: red;
+  cursor: pointer;
 }
 
-li {
-  align-items: center;
-  display: flex;
-}
 nz-list-header {
   display: flex;
   align-items: center;
@@ -16,40 +10,11 @@ nz-list-header {
 }
 .search {
   width: fit-content;
+  margin-bottom: 1rem;
   input {
     padding: 0.25rem;
     border: none;
     outline: none !important;
-  }
-}
-#products-table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#products-table td,
-#products-table th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#products-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#products-table tr:hover {
-  background-color: #ddd;
-}
-
-#products-table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #525975;
-  color: white;
-  &:last-child {
-    width: 1rem;
   }
 }
 
@@ -57,4 +22,11 @@ nz-list-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+nz-list-header {
+  padding: 8px !important;
+}
+nz-table {
+  border: 1px solid #cecece;
 }
