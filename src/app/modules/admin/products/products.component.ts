@@ -4,6 +4,7 @@ import {
   Component,
   DestroyRef,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
@@ -14,17 +15,24 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { ShopService } from '../../../core/services/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, delay } from 'rxjs';
-import { Product, ResponseProduct } from '../../../core/interfaces/product';
+import { Product, ProductInput } from '../../../core/interfaces/product';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NewProductComponent } from '../../../shared/forms/new-product/new-product.component';
+import { ApiPaginatedResponse } from '../../../core/interfaces/response';
 
 @Component({
   selector: 'app-products',
   standalone: true,
+  templateUrl: './products.component.html',
+  styleUrl: './products.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NzListModule,
     NzIconDirective,
@@ -38,10 +46,10 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzTableModule,
     NzCardComponent,
     NzPopconfirmModule,
+    NzModalModule,
+    NzButtonModule,
+    NewProductComponent,
   ],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsComponent implements OnInit {
   constructor(
@@ -54,11 +62,12 @@ export class ProductsComponent implements OnInit {
   total: number = 0;
   data: Product[] | null = null;
   fetching: boolean = true;
+  @ViewChild(NewProductComponent) newProductForm!: NewProductComponent;
   ngOnInit(): void {
     this.shop
       .getProducts(this.page, this.pageSize)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res: ResponseProduct) => {
+      .pipe(delay(500), takeUntilDestroyed(this.destroyRef))
+      .subscribe((res: ApiPaginatedResponse<Product>) => {
         this.fetching = false;
         this.data = res.data;
         this.total = res.total;
@@ -73,7 +82,7 @@ export class ProductsComponent implements OnInit {
           this.shop
             .getProductsByName(value)
             .pipe(takeUntilDestroyed(this.destroyRef), delay(300))
-            .subscribe((res: ResponseProduct) => {
+            .subscribe((res: ApiPaginatedResponse<Product>) => {
               this.data = res.data;
               this.changeDetector.markForCheck();
               this.total = res.total;
@@ -85,7 +94,7 @@ export class ProductsComponent implements OnInit {
           this.shop
             .getProducts(this.page, this.pageSize)
             .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-            .subscribe((res: ResponseProduct) => {
+            .subscribe((res: ApiPaginatedResponse<Product>) => {
               this.fetching = false;
               this.data = res.data;
               this.total = res.total;
@@ -101,4 +110,41 @@ export class ProductsComponent implements OnInit {
     });
   }
   searchControl = new FormControl<string>('');
+  isModalVisible: boolean = false;
+  showModal() {
+    this.isModalVisible = !this.isModalVisible;
+  }
+  handleCancel() {
+    this.isModalVisible = false;
+  }
+  handleOk() {
+    console.log('sdf');
+    if (this.newProductForm.productForm.valid) {
+      const { title, price, description, shortDescription } =
+        this.newProductForm.productForm.getRawValue();
+      this.submitProduct({
+        title: title!,
+        price: price!,
+        description: description!,
+        short_description: shortDescription!,
+        brand_id: 1, // fix
+      });
+    }
+  }
+  submitProduct(product: ProductInput) {
+    this.shop.createProduct(product).subscribe(() => {
+      this.fetching = true;
+      this.changeDetector.markForCheck();
+      this.shop
+        .getProducts(this.page, this.pageSize)
+        .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
+        .subscribe((res: ApiPaginatedResponse<Product>) => {
+          this.fetching = false;
+          this.data = res.data;
+          this.total = res.total;
+          this.changeDetector.markForCheck();
+        });
+      this.isModalVisible = false;
+    });
+  }
 }

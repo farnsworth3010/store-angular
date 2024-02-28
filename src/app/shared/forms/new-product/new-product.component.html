@@ -1,0 +1,69 @@
+<form nz-form [formGroup]="productForm">
+  <nz-form-item>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input title">
+      <input placeholder="Title" nz-input formControlName="title" id="title" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item auto>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input price!">
+      <input
+        placeholder="Price"
+        nz-input
+        type="number"
+        id="price"
+        formControlName="price" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please input short description!">
+      <input
+        placeholder="Short description"
+        nz-input
+        type="text"
+        id="price"
+        formControlName="shortDescription" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control
+      [nzSpan]="120"
+      nzHasFeedback
+      nzErrorTip="Please write something here!">
+      <nz-textarea-count [nzMaxCharacterCount]="2000">
+        <textarea
+          formControlName="description"
+          nz-input
+          rows="2"
+          placeholder="Description"></textarea>
+      </nz-textarea-count>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-upload
+      nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      [nzHeaders]="{ authorization: 'authorization-text' }">
+      <button nz-button>
+        <span nz-icon nzType="upload"></span>
+        Click to Upload
+      </button>
+    </nz-upload>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <div class="example-input">
+        <input
+          placeholder="Brand"
+          nz-input
+          formControlName="brand"
+          [nzAutocomplete]="auto" />
+        <nz-autocomplete
+          [nzDataSource]="brands!"
+          nzckfill
+          #auto></nz-autocomplete>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</form>

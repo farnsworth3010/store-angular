@@ -1,21 +1,29 @@
-<div class="search">
-  <nz-input-group [nzSuffix]="suffixIconSearch">
-    <input
-      [formControl]="searchControl"
-      type="text"
-      nz-input
-      spellcheck="false"
-      placeholder="Input search text" />
-  </nz-input-group>
-  <ng-template #suffixIconSearch>
-    <span nz-icon nzType="search"></span>
-  </ng-template>
+<div class="action-group">
+  <div class="search">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input
+        [formControl]="searchControl"
+        type="text"
+        nz-input
+        spellcheck="false"
+        placeholder="Input search text" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+  </div>
+
+  <button nz-button [nzType]="'primary'" (click)="showModal()">
+    <span>New product</span>
+  </button>
 </div>
+
 <nz-table
-  [nzPageSize]="50"
-  [nzPageIndex]="page + 1"
+  [nzData]="data!"
+  [nzLoading]="fetching"
+  [nzShowPagination]="false"
   nzSize="small"
-  [nzData]="data!">
+  [nzHideOnSinglePage]="true">
   <thead>
     <tr>
       <th nzWidth="60px">ID</th>
@@ -70,3 +78,15 @@
     }
   </tbody>
 </nz-table>
+<ng-template nz-tab> </ng-template>
+<nz-modal
+  nzCentered
+  [(nzVisible)]="isModalVisible"
+  nzTitle="New product"
+  (nzOnOk)="handleOk()"
+  (nzOnCancel)="handleCancel()"
+  nzOkText="Add">
+  <ng-container *nzModalContent>
+    <app-new-product (submitFormEvent)="submitProduct($event)" />
+  </ng-container>
+</nz-modal>

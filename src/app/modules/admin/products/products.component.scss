@@ -10,7 +10,7 @@ nz-list-header {
 }
 .search {
   width: fit-content;
-  margin-bottom: 1rem;
+  margin-right: 1rem;
   input {
     padding: 0.25rem;
     border: none;
@@ -29,4 +29,11 @@ nz-list-header {
 }
 nz-table {
   border: 1px solid #cecece;
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
 }

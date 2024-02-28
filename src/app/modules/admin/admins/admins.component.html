@@ -1,4 +1,9 @@
-<nz-table [nzShowPagination]="false" nzSize="small" [nzData]="data!">
+<nz-table
+  [nzData]="data!"
+  [nzLoading]="fetching"
+  [nzShowPagination]="false"
+  nzSize="small"
+  [nzHideOnSinglePage]="true">
   <thead>
     <tr>
       <th nzWidth="60px">ID</th>
@@ -39,6 +44,18 @@
                   nz-icon
                   nzType="arrow-down"
                   nzTheme="outline"></span>
+              } @else {
+                <span
+                  class="demote"
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure assign this administrator?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="setRole(user.ID, 1)"
+                  nz-tooltip
+                  nzTooltipTitle="Assign as administrator"
+                  nz-icon
+                  nzType="arrow-up"
+                  nzTheme="outline"></span>
               }
             } @else {
               <span
@@ -53,12 +70,21 @@
         </td>
         <td>
           <div class="role">
-            <span
-              nz-tooltip
-              nzTooltipTitle="Administrator"
-              nz-icon
-              nzType="star"
-              nzTheme="outline"></span>
+            @if (user.role_id === 1) {
+              <span
+                nz-tooltip
+                nzTooltipTitle="Administrator"
+                nz-icon
+                nzType="star"
+                nzTheme="outline"></span>
+            } @else {
+              <span
+                nz-tooltip
+                nzTooltipTitle="Client"
+                nz-icon
+                nzType="user"
+                nzTheme="outline"></span>
+            }
           </div>
         </td>
       </tr>

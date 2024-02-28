@@ -51,7 +51,7 @@ export class BlogComponent implements OnInit {
   ngOnInit(): void {
     this.panel
       .getBlogs()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(delay(500), takeUntilDestroyed(this.destroyRef))
       .subscribe((res: ResponseShortBlogPost) => {
         this.fetching = false;
         this.data = res.data;

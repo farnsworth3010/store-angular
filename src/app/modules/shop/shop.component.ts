@@ -18,10 +18,11 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShopService } from '../../core/services/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzEmptyComponent } from 'ng-zorro-antd/empty';
-import { Product, ResponseProduct } from '../../core/interfaces/product';
+import { Product } from '../../core/interfaces/product';
 import { debounceTime, delay } from 'rxjs';
 import { NzSpinComponent } from 'ng-zorro-antd/spin';
 import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
+import { ApiPaginatedResponse } from '../../core/interfaces/response';
 
 @Component({
   selector: 'app-shop',
@@ -66,7 +67,7 @@ export class ShopComponent implements OnInit {
     this.shop
       .getProducts(this.page, this.pageSize)
       .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-      .subscribe((res: ResponseProduct) => {
+      .subscribe((res: ApiPaginatedResponse<Product>) => {
         this.fetching = false;
         this.data = res.data;
         this.total = res.total;
@@ -81,7 +82,7 @@ export class ShopComponent implements OnInit {
           this.shop
             .getProductsByName(value)
             .pipe(takeUntilDestroyed(this.destroyRef), delay(300))
-            .subscribe((res: ResponseProduct) => {
+            .subscribe((res: ApiPaginatedResponse<Product>) => {
               this.data = res.data;
               this.changeDetector.markForCheck();
               this.fetching = false;
@@ -92,7 +93,7 @@ export class ShopComponent implements OnInit {
           this.shop
             .getProducts(this.page, this.pageSize)
             .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-            .subscribe((res: ResponseProduct) => {
+            .subscribe((res: ApiPaginatedResponse<Product>) => {
               this.fetching = false;
               this.data = res.data;
               this.total = res.total;
@@ -117,7 +118,7 @@ export class ShopComponent implements OnInit {
     this.shop
       .getProducts(page, 20)
       .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-      .subscribe((res: ResponseProduct) => {
+      .subscribe((res: ApiPaginatedResponse<Product>) => {
         this.data = res.data;
         this.total = res.total;
         this.fetching = false;

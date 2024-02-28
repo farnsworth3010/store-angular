@@ -13,11 +13,19 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { UserService } from '../../../core/services/user.service';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [NzTableModule, NzIconModule, NzToolTipModule, NzPopconfirmModule],
+  imports: [
+    NzTableModule,
+    NzIconModule,
+    NzToolTipModule,
+    NzPopconfirmModule,
+    NzSkeletonModule,
+  ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,7 +45,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.panel
       .getUsers()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef), delay(500))
       .subscribe((res: UsersResponse) => {
         this.fetching = false;
         this.data = res.data;

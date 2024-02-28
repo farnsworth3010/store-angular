@@ -1,4 +1,9 @@
-<nz-table [nzShowPagination]="false" nzSize="small" [nzData]="data!">
+<nz-table
+  [nzData]="data!"
+  [nzLoading]="fetching"
+  [nzShowPagination]="false"
+  nzSize="small"
+  [nzHideOnSinglePage]="true">
   <thead>
     <tr>
       <th nzWidth="60px">ID</th>

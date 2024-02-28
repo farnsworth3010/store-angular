@@ -19,6 +19,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { UserService } from '../../../core/services/user.service';
+import { delay } from 'rxjs';
 @Component({
   selector: 'app-admins',
   standalone: true,
@@ -53,7 +54,7 @@ export class AdminsComponent implements OnInit {
   ngOnInit(): void {
     this.panel
       .getAdmins()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(delay(500), takeUntilDestroyed(this.destroyRef))
       .subscribe((res: AdminResponse) => {
         this.fetching = false;
         this.data = res.data;

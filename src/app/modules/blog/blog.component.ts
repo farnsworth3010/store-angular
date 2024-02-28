@@ -18,6 +18,7 @@ import { delay } from 'rxjs';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 import { NewPostComponent } from './new-post/new-post.component';
 import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive';
+import { ApiPaginatedResponse } from '../../core/interfaces/response';
 
 @Component({
   selector: 'app-blog',
@@ -86,7 +87,7 @@ export class BlogComponent implements OnInit {
     this.shop
       .getBlog(this.page, 5)
       .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-      .subscribe((res: ResponseBlogPost) => {
+      .subscribe((res: ApiPaginatedResponse<BlogPost>) => {
         this.posts = res.data;
         this.total = res.total;
         this.fetching = false;

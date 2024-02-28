@@ -7,7 +7,8 @@ import {
 import { ProductComponent } from '../../../shared/product/product.component';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { ShopService } from '../../../core/services/shop.service';
-import { Product, ResponseProduct } from '../../../core/interfaces/product';
+import { Product } from '../../../core/interfaces/product';
+import { ApiResponse } from '../../../core/interfaces/response';
 
 @Component({
   selector: 'app-latest-products',
@@ -24,7 +25,7 @@ export class LatestProductsComponent implements OnInit {
     private changeDetector: ChangeDetectorRef
   ) {}
   ngOnInit() {
-    this.shop.getLatestProduct().subscribe((res: ResponseProduct) => {
+    this.shop.getLatestProduct().subscribe((res: ApiResponse<Product>) => {
       this.data = res.data;
       this.changeDetector.markForCheck();
     });

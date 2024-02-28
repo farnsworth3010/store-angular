@@ -16,8 +16,10 @@ export interface Product {
   localStores: string[];
 }
 
-export interface ResponseProduct {
-  data: Product[];
-  page: number;
-  total: number;
+export interface ProductInput {
+  title: string;
+  price: number;
+  short_description: string;
+  description: string;
+  brand_id: number;
 }
