@@ -15,7 +15,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ShopService } from '../../core/services/shop.service';
+import { ShopService } from '../../core/services/shop/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzEmptyComponent } from 'ng-zorro-antd/empty';
 import { Product } from '../../core/interfaces/product';

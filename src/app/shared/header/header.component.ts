@@ -13,10 +13,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import {
   NzDrawerComponent,
   NzDrawerContentDirective,
-  NzDrawerPlacement,
 } from 'ng-zorro-antd/drawer';
-import { NavLink } from '../../core/interfaces/navLink';
-import { NavLinks } from '../../core/constants/navLinks';
 import {
   RouterLink,
   RouterLinkActive,
@@ -28,10 +25,10 @@ import {
   NzModalContentDirective,
   NzModalFooterDirective,
 } from 'ng-zorro-antd/modal';
-import { SignInComponent } from '../modals/login/sign-in.component';
+import { SignInComponent } from '../modals/sign-in/sign-in.component';
 import { NzFooterComponent } from 'ng-zorro-antd/layout';
 import { SignUpComponent } from '../modals/sign-up/sign-up.component';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay } from 'rxjs';
 import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive';
@@ -61,25 +58,28 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  visible = false;
-  placement: NzDrawerPlacement = 'left';
-  links: NavLink[] = NavLinks;
-  isModalVisible: boolean = false;
-  showSignUp: boolean = true;
-  showSignOut: boolean = false;
-  isOkLoading: boolean = false;
   constructor(
     private changeDetector: ChangeDetectorRef,
     public authService: AuthService,
     private destroyRef: DestroyRef,
     private router: Router
   ) {}
+
+  showDrawer = false;
+  isModalVisible: boolean = false;
+  showSignUp: boolean = true;
+  showSignOut: boolean = false;
+  isOkLoading: boolean = false;
+
   @Input({ required: true }) fixed: boolean = true;
+
+  @ViewChild('signIn', { static: false }) signInForm!: SignInComponent;
+  @ViewChild('signUp', { static: false }) signUpForm!: SignUpComponent;
+
   @HostBinding('class.fixed') get isFixed() {
     return this.fixed;
   }
-  @ViewChild('signIn', { static: false }) signInForm!: SignInComponent;
-  @ViewChild('signUp', { static: false }) signUpForm!: SignUpComponent;
+
   ngOnInit() {
     this.authService.authorized
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -97,26 +97,30 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+
   signOut(): void {
     this.authService.signOut();
     this.changeDetector.markForCheck();
   }
 
-  open(): void {
-    this.visible = true;
+  toggleMenu(): void {
+    this.showDrawer = !this.showDrawer;
   }
 
-  showModal(): void {
+  toggleModal(): void {
     this.isModalVisible = !this.isModalVisible;
   }
+
   toggleRegistered(): void {
     this.showSignUp = !this.showSignUp;
     this.isOkLoading = false;
     this.changeDetector.markForCheck();
   }
+
   handeCancel(): void {
     this.isModalVisible = false;
   }
+
   handleOk(): void {
     this.isOkLoading = true;
     this.changeDetector.markForCheck();
@@ -158,11 +162,5 @@ export class HeaderComponent implements OnInit {
         },
       });
     }
-  }
-  handleCancel(): void {
-    this.isModalVisible = false;
-  }
-  close(): void {
-    this.visible = false;
   }
 }

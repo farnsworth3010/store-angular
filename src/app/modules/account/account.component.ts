@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { HeaderComponent } from '../../shared/header/header.component';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { User } from '../../core/interfaces/user';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCardComponent } from 'ng-zorro-antd/card';
@@ -17,7 +17,6 @@ import {
   NzModalContentDirective,
   NzModalFooterDirective,
 } from 'ng-zorro-antd/modal';
-import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-account',
@@ -40,13 +39,12 @@ import { UserService } from '../../core/services/user.service';
 export class AccountComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private changeDetector: ChangeDetectorRef
   ) {}
   userInfo: User | null = null;
   isDeleteModalVisible: boolean = false;
   ngOnInit() {
-    this.userService.getUserInfo().subscribe((res: User) => {
+    this.authService.getUserInfo().subscribe((res: User) => {
       this.userInfo = res;
       this.changeDetector.markForCheck();
     });
@@ -61,7 +59,7 @@ export class AccountComponent implements OnInit {
     this.isDeleteModalVisible = false;
   }
   deleteAccount(): void {
-    this.userService.deleteUser().subscribe(() => {
+    this.authService.deleteUser().subscribe(() => {
       this.signOut();
     });
   }

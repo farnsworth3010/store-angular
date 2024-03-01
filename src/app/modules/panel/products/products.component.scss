@@ -22,6 +22,9 @@ nz-list-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  span {
+    cursor: pointer;
+  }
 }
 
 nz-list-header {

@@ -15,10 +15,10 @@ import { UsersComponent } from './users/users.component';
 import { BlogComponent } from './blog/blog.component';
 
 @Component({
-  selector: 'app-admin',
+  selector: 'app-panel',
   standalone: true,
-  templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss',
+  templateUrl: './panel.component.html',
+  styleUrl: './panel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     HeaderComponent,
@@ -37,4 +37,4 @@ import { BlogComponent } from './blog/blog.component';
     BlogComponent,
   ],
 })
-export class AdminComponent {}
+export class PanelComponent {}

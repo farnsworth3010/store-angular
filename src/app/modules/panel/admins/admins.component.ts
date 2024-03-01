@@ -12,14 +12,15 @@ import { NzInputGroupComponent } from 'ng-zorro-antd/input';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { Admin, AdminResponse } from '../../../core/interfaces/user';
-import { PanelService } from '../../../core/services/panel.service';
+import { Admin } from '../../../core/interfaces/user';
+import { PanelService } from '../../../core/services/panel/panel.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { UserService } from '../../../core/services/user.service';
 import { delay } from 'rxjs';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { ApiResponse } from '../../../core/interfaces/response';
 @Component({
   selector: 'app-admins',
   standalone: true,
@@ -44,7 +45,7 @@ export class AdminsComponent implements OnInit {
     private panel: PanelService,
     private destroyRef: DestroyRef,
     private changeDetector: ChangeDetectorRef,
-    public userInfo: UserService
+    public auth: AuthService
   ) {}
   page: number = 0;
   pageSize: number = 50;
@@ -55,7 +56,7 @@ export class AdminsComponent implements OnInit {
     this.panel
       .getAdmins()
       .pipe(delay(500), takeUntilDestroyed(this.destroyRef))
-      .subscribe((res: AdminResponse) => {
+      .subscribe((res: ApiResponse<Admin>) => {
         this.fetching = false;
         this.data = res.data;
         this.changeDetector.markForCheck();

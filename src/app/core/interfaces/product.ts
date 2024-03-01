@@ -14,9 +14,19 @@ export interface Product {
   sizes: string[];
   composition: string[];
   localStores: string[];
+  brand_id: number;
 }
 
-export interface ProductInput {
+export interface NewProductInput {
+  title: string;
+  price: number;
+  short_description: string;
+  description: string;
+  brand_id: number;
+}
+
+export interface EditProductInput {
+  ID: number;
   title: string;
   price: number;
   short_description: string;

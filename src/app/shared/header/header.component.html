@@ -7,11 +7,11 @@
       <li routerLinkActive="active" routerLink="/account">Account</li>
     }
     <ng-container appOnlyAdmins #access="access">
-      @if (access.user.userInfo.getValue()?.role_id === 1) {
+      @if (access.auth.userInfo.getValue()?.role_id === 1) {
         <li
           class="admin"
           routerLinkActive="active"
-          routerLink="/admin"
+          routerLink="/panel"
           [queryParams]="{ tab: 'products' }">
           Admin
         </li>
@@ -34,7 +34,7 @@
         <div (click)="signOut()">Sign out</div>
       </li>
     } @else {
-      <li class="profile-block" (click)="showModal()">Sign in/up</li>
+      <li class="profile-block" (click)="toggleModal()">Sign in/up</li>
     }
     @if (authService.authorizedSubject | async) {
       <li class="saved">
@@ -42,11 +42,16 @@
       </li>
     }
     <li class="cart">
-      <button class="circle-button" nz-button nzType="primary" nzShape="circle">
+      <button
+        routerLink="/cart"
+        class="circle-button"
+        nz-button
+        nzType="primary"
+        nzShape="circle">
         <span nz-icon nzType="shopping-cart"></span>
       </button>
     </li>
-    <li (click)="open()" class="menu">
+    <li (click)="toggleMenu()" class="menu">
       <span nz-icon nzType="menu"></span>
     </li>
   </div>
@@ -54,16 +59,12 @@
 <nz-drawer
   nzWidth="70vw"
   [nzClosable]="false"
-  [nzVisible]="visible"
-  [nzPlacement]="placement"
-  (nzOnClose)="close()">
+  [nzVisible]="showDrawer"
+  nzPlacement="left"
+  (nzOnClose)="toggleMenu()">
   <ng-container *nzDrawerContent>
     <ul class="drawer-content">
-      @for (link of links; track $index) {
-        <li routerLinkActive="active" [routerLink]="link.link">
-          {{ link.label }}
-        </li>
-      }
+      d
     </ul>
   </ng-container>
 </nz-drawer>
@@ -71,7 +72,7 @@
   [(nzVisible)]="isModalVisible"
   [nzTitle]="showSignUp ? 'Sign in' : 'Sign up'"
   nzCancelText="Later"
-  (nzOnCancel)="handleCancel()"
+  (nzOnCancel)="toggleModal()"
   nzCentered>
   <div *nzModalContent>
     @if (showSignUp) {

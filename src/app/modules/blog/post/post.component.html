@@ -10,7 +10,7 @@
 </nz-card>
 <ng-container appOnlyAdmins #access="access">
   <ng-template #blogAdmin>
-    @if (access.user.userInfo.getValue()?.role_id === 1) {
+    @if (access.auth.userInfo.getValue()?.role_id === 1) {
       <a>Edit </a>
       <a (click)="deleteBlogHandle()">Delete</a>
     }

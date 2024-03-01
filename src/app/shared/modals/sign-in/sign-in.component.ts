@@ -4,29 +4,26 @@ import {
   Component,
   DestroyRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import {
   NzFormControlComponent,
   NzFormDirective,
   NzFormItemComponent,
 } from 'ng-zorro-antd/form';
-import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import { ShopService } from '../../../core/services/shop.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { JWTToken } from '../../../core/interfaces/user';
-import { delay, Observable } from 'rxjs';
+import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
+import { Observable, delay } from 'rxjs';
 
-import { UserService } from '../../../core/services/user.service';
 import { NzAlertComponent } from 'ng-zorro-antd/alert';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -51,22 +48,29 @@ import { NzAlertComponent } from 'ng-zorro-antd/alert';
 export class SignInComponent {
   constructor(
     private fb: FormBuilder,
-    private shop: ShopService,
+    private auth: AuthService,
     private destroyRef: DestroyRef,
-    private userService: UserService,
     private changeDetector: ChangeDetectorRef
   ) {}
+
+  validateForm: FormGroup = this.fb.group({
+    email: ['', [Validators.email, Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    remember: [true],
+  });
+
   failedSignIn: boolean = false;
+
   submitForm(): Observable<string> {
     return new Observable<string>(subscriber => {
       if (this.validateForm.valid) {
         const { email, password } = this.validateForm.getRawValue();
-        this.shop
+        this.auth
           .signIn({ email: email!, password: password! })
           .pipe(takeUntilDestroyed(this.destroyRef), delay(500))
           .subscribe({
-            next: (res: JWTToken) => {
-              subscriber.next(res.token);
+            next: ({ token }: { token: string }) => {
+              subscriber.next(token);
             },
             error: () => {
               this.failedSignIn = true;
@@ -85,13 +89,4 @@ export class SignInComponent {
       }
     });
   }
-  validateForm: FormGroup<{
-    email: FormControl<string | null>;
-    password: FormControl<string | null>;
-    remember: FormControl<boolean | null>;
-  }> = this.fb.group({
-    email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    remember: [true],
-  });
 }

@@ -5,21 +5,19 @@ import {
   DestroyRef,
   OnInit,
 } from '@angular/core';
-import { PanelService } from '../../../core/services/panel.service';
-import {
-  BlogPost,
-  ResponseShortBlogPost,
-  ShortBlogPost,
-} from '../../../core/interfaces/blogPost';
+import { PanelService } from '../../../core/services/panel/panel.service';
+import { BlogPost, ShortBlogPost } from '../../../core/interfaces/blogPost';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RouterLink } from '@angular/router';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { ShopService } from '../../../core/services/shop.service';
+import { ShopService } from '../../../core/services/shop/shop.service';
 import { delay } from 'rxjs';
 import { NewPostComponent } from '../../blog/new-post/new-post.component';
+import { ApiPaginatedResponse } from '../../../core/interfaces/response';
+import { BlogService } from '../../../core/services/blog/blog.service';
 
 @Component({
   selector: 'app-blog',
@@ -41,7 +39,8 @@ export class BlogComponent implements OnInit {
     private panel: PanelService,
     private destroyRef: DestroyRef,
     private changeDetector: ChangeDetectorRef,
-    private shop: ShopService
+    private shop: ShopService,
+    private blog: BlogService
   ) {}
   page: number = 0;
   pageSize: number = 50;
@@ -52,14 +51,14 @@ export class BlogComponent implements OnInit {
     this.panel
       .getBlogs()
       .pipe(delay(500), takeUntilDestroyed(this.destroyRef))
-      .subscribe((res: ResponseShortBlogPost) => {
+      .subscribe((res: ApiPaginatedResponse<ShortBlogPost>) => {
         this.fetching = false;
         this.data = res.data;
         this.changeDetector.markForCheck();
       });
   }
   deleteBlog(ID: number) {
-    this.shop.deleteBlog(ID).subscribe(() => {
+    this.blog.deleteBlog(ID).subscribe(() => {
       this.data = this.data?.filter(el => el.ID != ID) ?? [];
       this.changeDetector.markForCheck();
     });
@@ -68,7 +67,7 @@ export class BlogComponent implements OnInit {
   submitPost({ title, text }: { title: string; text: string }) {
     this.changeDetector.markForCheck();
     this.sending = true;
-    this.shop
+    this.blog
       .createBlog(title, text)
       .pipe(delay(1000))
       .subscribe(res => {

@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { ProductComponent } from '../../../shared/product/product.component';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import { ShopService } from '../../../core/services/shop.service';
+import { ShopService } from '../../../core/services/shop/shop.service';
 import { Product } from '../../../core/interfaces/product';
 import { ApiResponse } from '../../../core/interfaces/response';
 

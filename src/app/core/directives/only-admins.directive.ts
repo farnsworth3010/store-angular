@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Directive } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Directive({
   selector: '[appOnlyAdmins]',
@@ -8,10 +8,10 @@ import { UserService } from '../services/user.service';
 })
 export class OnlyAdminsDirective {
   constructor(
-    public user: UserService,
+    public auth: AuthService,
     private changeDetector: ChangeDetectorRef
   ) {
-    user.userInfo.subscribe(() => {
+    auth.userInfo.subscribe(() => {
       this.changeDetector.markForCheck();
     });
   }

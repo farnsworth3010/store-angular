@@ -1,6 +1,6 @@
 <div class="container">
   <ng-container appOnlyAdmins #access="access">
-    @if (access.user.userInfo.getValue()?.role_id === 1) {
+    @if (access.auth.userInfo.getValue()?.role_id === 1) {
       <app-new-post (formSubmit)="submitPost($event)" [sending]="sending" />
     }
   </ng-container>

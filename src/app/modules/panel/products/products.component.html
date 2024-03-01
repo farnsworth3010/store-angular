@@ -13,7 +13,7 @@
     </ng-template>
   </div>
 
-  <button nz-button [nzType]="'primary'" (click)="showModal()">
+  <button nz-button [nzType]="'primary'" (click)="showModal(null, 0)">
     <span>New product</span>
   </button>
 </div>
@@ -59,6 +59,7 @@
               nz-icon
               nzType="edit"
               nz-tooltip
+              (click)="showModal(product, 1)"
               nzTooltipTitle="Edit"
               nzTheme="outline"></span>
             <span
@@ -82,11 +83,13 @@
 <nz-modal
   nzCentered
   [(nzVisible)]="isModalVisible"
-  nzTitle="New product"
+  [nzTitle]="!modalType ? 'New product' : 'Edit product'"
   (nzOnOk)="handleOk()"
   (nzOnCancel)="handleCancel()"
-  nzOkText="Add">
+  [nzOkText]="!modalType ? 'Add' : 'Update'">
   <ng-container *nzModalContent>
-    <app-new-product (submitFormEvent)="submitProduct($event)" />
+    <app-new-product
+      [data]="product"
+      (submitFormEvent)="submitProduct($event)" />
   </ng-container>
 </nz-modal>

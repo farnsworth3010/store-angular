@@ -3,7 +3,7 @@
     [class]="imageType"
     alt="mock image"
     [nzSrc]="data.images ? data.images[0] : 'a'"
-    [nzFallback]="imageFallback"
+    [nzFallback]="imageFallbackUrl"
     [nzDisablePreview]="true"
     nz-image />
   <button class="save" nz-button nzType="primary" nzShape="circle">
@@ -12,7 +12,6 @@
 </div>
 <div class="info">
   <h1>{{ data.title }}</h1>
-  <!--  <span class="example-color">({{ data?.exampleColor | titlecase }})</span>-->
   <h2 class="price">{{ data.price | currency }}</h2>
   @if (showColors && data.colors) {
     <app-colors [colors]="data.colors!" />

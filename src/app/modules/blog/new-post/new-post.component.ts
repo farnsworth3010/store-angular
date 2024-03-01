@@ -20,7 +20,7 @@ import {
 import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
 import { NzColDirective } from 'ng-zorro-antd/grid';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { ShopService } from '../../../core/services/shop.service';
+import { ShopService } from '../../../core/services/shop/shop.service';
 import { NewBlogPostInput } from '../../../core/interfaces/blogPost';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 

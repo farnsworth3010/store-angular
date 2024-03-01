@@ -20,7 +20,7 @@ import { provideMarkdown } from 'ngx-markdown';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
 import { authInit } from './core/authInit';
-import { AuthService } from './core/services/auth.service';
+import { AuthService } from './core/services/auth/auth.service';
 
 registerLocaleData(en);
 

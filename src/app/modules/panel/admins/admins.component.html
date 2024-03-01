@@ -31,7 +31,7 @@
         </td>
         <td class="actions">
           <div class="actions-container">
-            @if (userInfo.userInfo.getValue()?.ID !== user.ID) {
+            @if (auth.userInfo.getValue()?.ID !== user.ID) {
               @if (user.role_id === 1) {
                 <span
                   class="demote"

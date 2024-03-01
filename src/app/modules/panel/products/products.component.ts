@@ -1,3 +1,4 @@
+import { NewProductInput } from './../../../core/interfaces/product';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -12,10 +13,10 @@ import { NzInputGroupComponent } from 'ng-zorro-antd/input';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { ShopService } from '../../../core/services/shop.service';
+import { ShopService } from '../../../core/services/shop/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, delay } from 'rxjs';
-import { Product, ProductInput } from '../../../core/interfaces/product';
+import { Product } from '../../../core/interfaces/product';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
@@ -57,13 +58,16 @@ export class ProductsComponent implements OnInit {
     private destroyRef: DestroyRef,
     private changeDetector: ChangeDetectorRef
   ) {}
+
   page: number = 0;
   pageSize: number = 50;
   total: number = 0;
   data: Product[] | null = null;
+  product: Product | null = null;
   fetching: boolean = true;
   @ViewChild(NewProductComponent) newProductForm!: NewProductComponent;
-  ngOnInit(): void {
+
+  fetchProducts() {
     this.shop
       .getProducts(this.page, this.pageSize)
       .pipe(delay(500), takeUntilDestroyed(this.destroyRef))
@@ -73,78 +77,97 @@ export class ProductsComponent implements OnInit {
         this.total = res.total;
         this.changeDetector.markForCheck();
       });
-    this.searchControl.valueChanges
-      .pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
-      .subscribe((value: string | null) => {
-        if (value) {
-          this.fetching = true;
-          this.changeDetector.markForCheck();
-          this.shop
-            .getProductsByName(value)
-            .pipe(takeUntilDestroyed(this.destroyRef), delay(300))
-            .subscribe((res: ApiPaginatedResponse<Product>) => {
-              this.data = res.data;
-              this.changeDetector.markForCheck();
-              this.total = res.total;
-              this.fetching = false;
-            });
-        } else {
-          this.fetching = true;
-          this.changeDetector.markForCheck();
-          this.shop
-            .getProducts(this.page, this.pageSize)
-            .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-            .subscribe((res: ApiPaginatedResponse<Product>) => {
-              this.fetching = false;
-              this.data = res.data;
-              this.total = res.total;
-              this.changeDetector.markForCheck();
-            });
-        }
+  }
+
+  fetchProductsByName(name: string) {
+    this.shop
+      .getProductsByName(name)
+      .pipe(takeUntilDestroyed(this.destroyRef), delay(300))
+      .subscribe((res: ApiPaginatedResponse<Product>) => {
+        this.data = res.data;
+        this.changeDetector.markForCheck();
+        this.total = res.total;
+        this.fetching = false;
       });
   }
+
+  ngOnInit(): void {
+    this.fetchProducts();
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
+      .subscribe((name: string | null) => {
+        this.fetching = true;
+        if (name) {
+          this.changeDetector.markForCheck();
+        } else {
+          this.fetchProducts();
+        }
+        this.changeDetector.markForCheck();
+      });
+  }
+
   deleteProduct(ID: number): void {
     this.shop.deleteProduct(ID).subscribe(() => {
       this.data = this.data?.filter(el => el.ID !== ID) ?? [];
       this.changeDetector.markForCheck();
     });
   }
+
   searchControl = new FormControl<string>('');
   isModalVisible: boolean = false;
-  showModal() {
+  public modalType: number = 0;
+
+  showModal(product: Product | null, modalType: number) {
+    this.modalType = modalType;
+    this.product = product;
+    this.changeDetector.markForCheck();
     this.isModalVisible = !this.isModalVisible;
   }
+
   handleCancel() {
     this.isModalVisible = false;
   }
+
   handleOk() {
-    console.log('sdf');
     if (this.newProductForm.productForm.valid) {
       const { title, price, description, shortDescription } =
         this.newProductForm.productForm.getRawValue();
-      this.submitProduct({
-        title: title!,
-        price: price!,
-        description: description!,
-        short_description: shortDescription!,
-        brand_id: 1, // fix
-      });
+      if (this.modalType === 1) {
+        this.submitProduct({
+          ID: this.product?.ID,
+          title: title!,
+          price: price!,
+          description: description!,
+          short_description: shortDescription!,
+          brand_id: 1, // fix
+        });
+      } else {
+        this.submitProduct({
+          title: title!,
+          price: price!,
+          description: description!,
+          short_description: shortDescription!,
+          brand_id: 1, // fix
+        });
+      }
     }
   }
-  submitProduct(product: ProductInput) {
-    this.shop.createProduct(product).subscribe(() => {
-      this.fetching = true;
-      this.changeDetector.markForCheck();
-      this.shop
-        .getProducts(this.page, this.pageSize)
-        .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-        .subscribe((res: ApiPaginatedResponse<Product>) => {
-          this.fetching = false;
-          this.data = res.data;
-          this.total = res.total;
-          this.changeDetector.markForCheck();
-        });
-      this.isModalVisible = false;
-    });
+
+  submitProduct(product: Product | NewProductInput) {
+    if (this.modalType === 1) {
+      this.shop.updateProduct(product as Product).subscribe(() => {
+        this.fetching = true;
+        this.changeDetector.markForCheck();
+        this.fetchProducts();
+        this.isModalVisible = false;
+      });
+    } else {
+      this.shop.createProduct(product as NewProductInput).subscribe(() => {
+        this.fetching = true;
+        this.changeDetector.markForCheck();
+        this.fetchProducts();
+        this.isModalVisible = false;
+      });
+    }
   }
 }

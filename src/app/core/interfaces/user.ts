@@ -10,8 +10,8 @@ export interface Admin {
   email: string;
   firstname: string;
   phoneNumber: string;
-  role_id: number;
   ID: number;
+  role_id: number;
 }
 
 export interface ShortUser {
@@ -21,16 +21,6 @@ export interface ShortUser {
   ID: number;
   role_id: number;
 }
-
-export interface UsersResponse {
-  data: ShortUser[];
-}
-
-export interface AdminResponse {
-  data: Admin[];
-}
-
-export interface Role {}
 
 export interface SignInData {
   email: string;
@@ -46,8 +36,5 @@ export interface SignUpData {
   firstname: string;
   phoneNumber: string;
   password: string;
-}
-export interface SignUpResponse {
-  id: number;
 }
 // REWRITE WITH TS UTILS

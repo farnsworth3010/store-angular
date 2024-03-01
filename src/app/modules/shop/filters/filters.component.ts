@@ -21,7 +21,7 @@ import {
   NzCheckboxWrapperComponent,
 } from 'ng-zorro-antd/checkbox';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import { ShopService } from '../../../core/services/shop.service';
+import { ShopService } from '../../../core/services/shop/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({

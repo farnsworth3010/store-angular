@@ -5,16 +5,17 @@ import {
   DestroyRef,
   OnInit,
 } from '@angular/core';
-import { ShortUser, UsersResponse } from '../../../core/interfaces/user';
-import { PanelService } from '../../../core/services/panel.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { UserService } from '../../../core/services/user.service';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { delay } from 'rxjs';
+import { ShortUser } from '../../../core/interfaces/user';
+import { PanelService } from '../../../core/services/panel/panel.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { ApiResponse } from '../../../core/interfaces/response';
 
 @Component({
   selector: 'app-users',
@@ -35,7 +36,7 @@ export class UsersComponent implements OnInit {
     private panel: PanelService,
     private destroyRef: DestroyRef,
     private changeDetector: ChangeDetectorRef,
-    public userInfo: UserService
+    public auth: AuthService
   ) {}
   page: number = 0;
   pageSize: number = 50;
@@ -46,7 +47,7 @@ export class UsersComponent implements OnInit {
     this.panel
       .getUsers()
       .pipe(takeUntilDestroyed(this.destroyRef), delay(500))
-      .subscribe((res: UsersResponse) => {
+      .subscribe((res: ApiResponse<ShortUser>) => {
         this.fetching = false;
         this.data = res.data;
         this.changeDetector.markForCheck();

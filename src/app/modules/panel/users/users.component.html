@@ -33,7 +33,7 @@
           <div class="actions-container">
             @switch (user.role_id) {
               @case (1) {
-                @if (userInfo.userInfo.getValue()?.ID !== user.ID) {
+                @if (auth.userInfo.getValue()?.ID !== user.ID) {
                   <span
                     class="demote"
                     nz-popconfirm

@@ -7,3 +7,7 @@ export interface ApiPaginatedResponse<T> {
   total: number;
   page: number;
 }
+
+export interface ApiPostResponse {
+  id: number;
+}

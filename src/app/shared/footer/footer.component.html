@@ -1,7 +1,19 @@
 <ul>
-  @for (link of links; track $index) {
-    <li routerLinkActive="active" [routerLink]="link.link">
-      {{ link.label }}
-    </li>
+  <li routerLinkActive="active" routerLink="/home">Home</li>
+  <li routerLinkActive="active" routerLink="/shop">Shop</li>
+  <li routerLinkActive="active" routerLink="/blog">Blog</li>
+  @if (auth.authorizedSubject | async) {
+    <li routerLinkActive="active" routerLink="/account">Account</li>
   }
+  <ng-container appOnlyAdmins #access="access">
+    @if (access.auth.userInfo.getValue()?.role_id === 1) {
+      <li
+        class="admin"
+        routerLinkActive="active"
+        routerLink="/panel"
+        [queryParams]="{ tab: 'products' }">
+        Admin
+      </li>
+    }
+  </ng-container>
 </ul>

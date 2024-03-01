@@ -5,20 +5,20 @@ import {
   DestroyRef,
   OnInit,
 } from '@angular/core';
-import { NzHeaderComponent } from 'ng-zorro-antd/layout';
-import { HeaderComponent } from '../../shared/header/header.component';
-import { BlogPost, ResponseBlogPost } from '../../core/interfaces/blogPost';
-import { ShopService } from '../../core/services/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NzEmptyComponent } from 'ng-zorro-antd/empty';
-import { PostComponent } from './post/post.component';
 import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzEmptyComponent } from 'ng-zorro-antd/empty';
+import { NzHeaderComponent } from 'ng-zorro-antd/layout';
+import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 import { NzSkeletonComponent } from 'ng-zorro-antd/skeleton';
 import { delay } from 'rxjs';
-import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
-import { NewPostComponent } from './new-post/new-post.component';
 import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive';
+import { BlogPost } from '../../core/interfaces/blogPost';
 import { ApiPaginatedResponse } from '../../core/interfaces/response';
+import { BlogService } from '../../core/services/blog/blog.service';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { NewPostComponent } from './new-post/new-post.component';
+import { PostComponent } from './post/post.component';
 
 @Component({
   selector: 'app-blog',
@@ -40,7 +40,7 @@ import { ApiPaginatedResponse } from '../../core/interfaces/response';
 })
 export class BlogComponent implements OnInit {
   constructor(
-    private shop: ShopService,
+    private blog: BlogService,
     private destroyRef: DestroyRef,
     private changeDetector: ChangeDetectorRef
   ) {}
@@ -53,7 +53,7 @@ export class BlogComponent implements OnInit {
   submitPost({ title, text }: { title: string; text: string }) {
     this.changeDetector.markForCheck();
     this.sending = true;
-    this.shop
+    this.blog
       .createBlog(title, text)
       .pipe(delay(1000))
       .subscribe(res => {
@@ -84,7 +84,7 @@ export class BlogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shop
+    this.blog
       .getBlog(this.page, 5)
       .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
       .subscribe((res: ApiPaginatedResponse<BlogPost>) => {
@@ -103,10 +103,10 @@ export class BlogComponent implements OnInit {
     });
     this.page = page;
     this.fetching = true;
-    this.shop
+    this.blog
       .getBlog(page, 5)
       .pipe(takeUntilDestroyed(this.destroyRef), delay(1000))
-      .subscribe((res: ResponseBlogPost) => {
+      .subscribe((res: ApiPaginatedResponse<BlogPost>) => {
         this.posts = res.data;
         this.total = res.total;
         this.fetching = false;
@@ -114,7 +114,7 @@ export class BlogComponent implements OnInit {
       });
   }
   deleteBlog(ID: number) {
-    this.shop.deleteBlog(ID).subscribe(() => {
+    this.blog.deleteBlog(ID).subscribe(() => {
       this.posts = this.posts?.filter((el: BlogPost) => {
         return el.ID != ID;
       });
