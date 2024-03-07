@@ -26,6 +26,7 @@
         <app-post
           [id]="post.ID"
           (deleteBlog)="deleteBlog(post.ID)"
+          (openEditModal)="openModal(post)"
           [data]="post" />
       } @empty {
         <nz-empty nzNotFoundContent="There are no posts yet" />
@@ -39,3 +40,14 @@
     </nz-pagination>
   </div>
 </div>
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  nzTitle="Edit blog"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="updatePost()"
+  nzCentered>
+  <ng-container *nzModalContent>
+    <app-edit-blog [data]="currentEditing" />
+  </ng-container>
+</nz-modal>

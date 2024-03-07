@@ -11,7 +11,7 @@
 <ng-container appOnlyAdmins #access="access">
   <ng-template #blogAdmin>
     @if (access.auth.userInfo.getValue()?.role_id === 1) {
-      <a>Edit </a>
+      <a (click)="openEditModalHandle()">Edit </a>
       <a (click)="deleteBlogHandle()">Delete</a>
     }
   </ng-template>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrl } from '../../constants/apiUrl';
-import { ShortBlogPost } from '../../interfaces/blogPost';
+import { BlogPost } from '../../interfaces/blogPost';
 import { Admin, ShortUser } from '../../interfaces/user';
 import { ApiPaginatedResponse, ApiResponse } from '../../interfaces/response';
 
@@ -20,8 +20,8 @@ export class PanelService {
     return this.http.get<ApiResponse<ShortUser>>(apiUrl + '/panel/users');
   }
 
-  getBlogs(): Observable<ApiPaginatedResponse<ShortBlogPost>> {
-    return this.http.get<ApiPaginatedResponse<ShortBlogPost>>(
+  getBlogs(): Observable<ApiPaginatedResponse<BlogPost>> {
+    return this.http.get<ApiPaginatedResponse<BlogPost>>(
       apiUrl + '/panel/blogs'
     );
   }

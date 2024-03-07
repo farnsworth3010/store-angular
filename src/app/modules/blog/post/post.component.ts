@@ -28,8 +28,14 @@ import { OnlyAdminsDirective } from '../../../core/directives/only-admins.direct
 })
 export class PostComponent {
   @Input() data!: BlogPost;
+
   @Output() deleteBlog: EventEmitter<void> = new EventEmitter<void>();
-  deleteBlogHandle() {
+  @Output() openEditModal: EventEmitter<void> = new EventEmitter<void>();
+
+  deleteBlogHandle(): void {
     this.deleteBlog.emit();
+  }
+  openEditModalHandle(): void {
+    this.openEditModal.emit();
   }
 }

@@ -33,4 +33,12 @@ export class BlogService {
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(apiUrl + `/blog/${id}`);
   }
+
+  updateBlog(id: number, title: string, text: string) {
+    return this.http.patch<void>(apiUrl + `/blog/`, {
+      id,
+      title,
+      text,
+    });
+  }
 }

@@ -59,22 +59,30 @@ export class NewProductComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res: ApiResponse<Brand>) => {
         this.brands = res.data.map(el => el.Name);
+        this.brandsMap2 = Object.fromEntries(
+          res.data.map(value => [value.ID, value.Name])
+        );
+        this.brandsMap = Object.fromEntries(
+          res.data.map(value => [value.Name, value.ID])
+        );
+        this.productForm.setValue({
+          title: this.data?.title ?? '',
+          brand: this.brandsMap2[this.data?.brand_id ?? 1] ?? '',
+          shortDescription: this.data?.short_description ?? '',
+          description: this.data?.description ?? '',
+          price: this.data?.price ?? 1,
+        });
         this.changeDetector.markForCheck();
       });
-    this.productForm.setValue({
-      title: this.data?.title ?? '',
-      brand: this.data?.brand_id ?? 1,
-      shortDescription: this.data?.short_description ?? '',
-      description: this.data?.description ?? '',
-      price: this.data?.price ?? 1,
-    });
   }
   brands: string[] = [];
+  brandsMap: { [key: string]: number } = {};
+  brandsMap2: { [key: number]: string } = {}; // rewrite this..
   productForm = this.fb.group({
     title: ['', [Validators.required]],
     price: [0, [Validators.required, Validators.min(0.01)]],
     shortDescription: ['', [Validators.required]],
     description: ['', [Validators.required]],
-    brand: [1, [Validators.required]],
+    brand: ['', [Validators.required]],
   });
 }

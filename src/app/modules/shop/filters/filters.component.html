@@ -51,10 +51,9 @@
   <nz-card>
     <p class="card-header">Brands</p>
     <nz-checkbox-wrapper>
-      <label nz-checkbox nzValue="B">B</label>
-      <label nz-checkbox nzValue="C">C</label>
-      <label nz-checkbox nzValue="D">D</label>
-      <label nz-checkbox nzValue="E">E</label>
+      @for (brand of brands; track brand) {
+        <label nz-checkbox [nzValue]="brand.ID">{{ brand.Name }}</label>
+      }
     </nz-checkbox-wrapper>
   </nz-card>
 </nz-card>

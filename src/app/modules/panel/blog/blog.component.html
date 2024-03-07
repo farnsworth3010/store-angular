@@ -3,9 +3,11 @@
 <nz-table
   [nzData]="data!"
   [nzLoading]="fetching"
-  [nzShowPagination]="false"
+  [nzShowPagination]="true"
+  [nzPageIndex]="1"
+  [nzTotal]="total"
   nzSize="small"
-  [nzHideOnSinglePage]="true">
+  (nzPageIndexChange)="changePage($event)">
   <thead>
     <tr>
       <th nzWidth="60px">ID</th>
@@ -34,6 +36,7 @@
               nzTooltipTitle="View"
               nzTheme="outline"></span>
             <span
+              (click)="openModal(blog)"
               rout
               class="edit-icon icon"
               nz-icon
@@ -58,3 +61,14 @@
     }
   </tbody>
 </nz-table>
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  nzTitle="Edit blog"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="updatePost()"
+  nzCentered>
+  <ng-container *nzModalContent>
+    <app-edit-blog [data]="currentEditing" />
+  </ng-container>
+</nz-modal>

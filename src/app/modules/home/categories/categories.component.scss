@@ -9,6 +9,7 @@ section {
 }
 
 .photo-block {
+  background-size: contain;
   background-size: 100% 100%;
   display: flex;
   justify-content: center;
@@ -38,10 +39,10 @@ section {
       @media screen and (max-width: 768px) {
         margin-bottom: 1rem;
       }
-      background-image: url('../../../../assets/home/categories/hats.jfif');
+      background-image: url('../../../../assets/home/categories/guitars.jpg');
     }
     &:last-child {
-      background-image: url('../../../../assets/home/categories/shoes.jfif');
+      background-image: url('../../../../assets/home/categories/basses.jpg');
     }
   }
 }
@@ -55,7 +56,7 @@ section {
     margin-bottom: 1rem;
   }
   .photo-block {
-    background-image: url('../../../../assets/home/categories/dresses.jfif');
+    background-image: url('../../../../assets/home/categories/drums.jpg');
     height: 100%;
   }
 }
@@ -68,14 +69,15 @@ section {
       height: 50vw;
     }
     &:first-child {
-      background-image: url('../../../../assets/home/categories/bags.jfif');
+      background-image: url('../../../../assets/home/categories/keys.jpg');
+      object-fit: cover;
       margin-bottom: 2vw;
       @media screen and (max-width: 768px) {
         margin-bottom: 1rem;
       }
     }
     &:last-child {
-      background-image: url('../../../../assets/home/categories/clothes.jfif');
+      background-image: url('../../../../assets/home/categories/strings.jpg');
     }
   }
 }

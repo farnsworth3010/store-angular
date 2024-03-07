@@ -1,3 +1,5 @@
+import { Brand } from './../../../core/interfaces/brand';
+import { ApiResponse } from './../../../core/interfaces/response';
 import { NewProductInput } from './../../../core/interfaces/product';
 import {
   ChangeDetectionStrategy,
@@ -65,6 +67,8 @@ export class ProductsComponent implements OnInit {
   data: Product[] | null = null;
   product: Product | null = null;
   fetching: boolean = true;
+  brands: Brand[] = [];
+  brandMap: { [key: number]: string } = {};
   @ViewChild(NewProductComponent) newProductForm!: NewProductComponent;
 
   fetchProducts() {
@@ -93,6 +97,14 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchProducts();
+    this.shop
+      .getBrands()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res: ApiResponse<Brand>) => {
+        this.brandMap = Object.fromEntries(
+          res.data.map(value => [value.ID, value.Name])
+        );
+      });
     this.searchControl.valueChanges
       .pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
       .subscribe((name: string | null) => {
@@ -104,6 +116,12 @@ export class ProductsComponent implements OnInit {
         }
         this.changeDetector.markForCheck();
       });
+    // this.shop
+    //   .getBrands()
+    //   .pipe(takeUntilDestroyed(this.destroyRef))
+    //   .subscribe((res: ApiResponse<Brand>) => {
+    //     this.brands = res.data;
+    //   });
   }
 
   deleteProduct(ID: number): void {
@@ -130,8 +148,9 @@ export class ProductsComponent implements OnInit {
 
   handleOk() {
     if (this.newProductForm.productForm.valid) {
-      const { title, price, description, shortDescription } =
+      const { title, price, description, shortDescription, brand } =
         this.newProductForm.productForm.getRawValue();
+      const brand_id = this.newProductForm.brandsMap[brand!];
       if (this.modalType === 1) {
         this.submitProduct({
           ID: this.product?.ID,
@@ -139,7 +158,7 @@ export class ProductsComponent implements OnInit {
           price: price!,
           description: description!,
           short_description: shortDescription!,
-          brand_id: 1, // fix
+          brand_id, // fix
         });
       } else {
         this.submitProduct({
@@ -147,7 +166,7 @@ export class ProductsComponent implements OnInit {
           price: price!,
           description: description!,
           short_description: shortDescription!,
-          brand_id: 1, // fix
+          brand_id, // fix
         });
       }
     }

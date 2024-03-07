@@ -23,6 +23,8 @@ import {
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { ShopService } from '../../../core/services/shop/shop.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ApiResponse } from '../../../core/interfaces/response';
+import { Brand } from '../../../core/interfaces/brand';
 
 @Component({
   selector: 'app-filters',
@@ -56,13 +58,20 @@ export class FiltersComponent implements OnInit {
     private destroyRef: DestroyRef,
     private changeDetector: ChangeDetectorRef
   ) {}
-
+  brands: Brand[] = [];
   ngOnInit() {
     this.shop
       .getCategories()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res: Category[]) => {
         this.categories = res;
+        this.changeDetector.markForCheck();
+      });
+    this.shop
+      .getBrands()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res: ApiResponse<Brand>) => {
+        this.brands = res.data;
         this.changeDetector.markForCheck();
       });
   }
