@@ -6,3 +6,9 @@
 markdown {
   list-style-position: inside;
 }
+
+.action {
+  &:first-child {
+    margin-right: 1rem;
+  }
+}

@@ -3,15 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrl } from '../../constants/apiUrl';
 import { Brand } from '../../interfaces/brand';
-import { Category } from '../../interfaces/categories';
+import { FullCategory } from '../../interfaces/categories';
 import { NewProductInput, Product } from '../../interfaces/product';
 import { ApiPaginatedResponse, ApiResponse } from '../../interfaces/response';
+import { FiltersService } from '../filters/filters.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private filters: FiltersService
+  ) {}
 
   getProducts(
     page: number,
@@ -19,6 +23,14 @@ export class ShopService {
   ): Observable<ApiPaginatedResponse<Product>> {
     return this.http.get<ApiPaginatedResponse<Product>>(
       apiUrl + `/product/?page=${page}&limit=${limit}`
+    );
+  }
+  getFilteredProducts() // page: number,
+  // limit: number
+  : Observable<ApiPaginatedResponse<Product>> {
+    return this.http.post<ApiPaginatedResponse<Product>>(
+      apiUrl + `/product/filter`,
+      this.filters.filters.getValue()
     );
   }
   getProduct(id: number): Observable<Product> {
@@ -43,8 +55,8 @@ export class ShopService {
     return this.http.get<ApiResponse<Brand>>(apiUrl + `/product/brands`);
   }
 
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(apiUrl + '/categories/');
+  getCategories(): Observable<FullCategory[]> {
+    return this.http.get<FullCategory[]>(apiUrl + '/categories/');
   }
 
   getProductsByName(name: string): Observable<ApiPaginatedResponse<Product>> {

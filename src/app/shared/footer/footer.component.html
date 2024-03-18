@@ -1,19 +1,26 @@
 <ul>
-  <li routerLinkActive="active" routerLink="/home">Home</li>
-  <li routerLinkActive="active" routerLink="/shop">Shop</li>
-  <li routerLinkActive="active" routerLink="/blog">Blog</li>
-  @if (auth.authorizedSubject | async) {
-    <li routerLinkActive="active" routerLink="/account">Account</li>
-  }
-  <ng-container appOnlyAdmins #access="access">
-    @if (access.auth.userInfo.getValue()?.role_id === 1) {
-      <li
-        class="admin"
-        routerLinkActive="active"
-        routerLink="/panel"
-        [queryParams]="{ tab: 'products' }">
-        Admin
-      </li>
+  <div class="links">
+    <li routerLinkActive="active" routerLink="/home" i18n>Home</li>
+    <li routerLinkActive="active" routerLink="/shop" i18n>Shop</li>
+    <li routerLinkActive="active" routerLink="/blog" i18n>Blog</li>
+    @if (auth.authorizedSubject | async) {
+      <li routerLinkActive="active" routerLink="/account" i18n>Account</li>
     }
-  </ng-container>
+    <ng-container appOnlyAdmins #access="access">
+      @if (access.auth.userInfo.getValue()?.role_id === 1) {
+        <li
+          class="admin"
+          routerLinkActive="active"
+          routerLink="/panel"
+          [queryParams]="{ tab: 'products' }"
+          i18n="link to admin panel in footer">
+          Admin
+        </li>
+      }
+    </ng-container>
+  </div>
+  <div class="languages">
+    <li><a href="/ru-RU">🇷🇺</a></li>
+    <li><a href="/en-US">🇺🇸</a></li>
+  </div>
 </ul>

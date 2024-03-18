@@ -14,4 +14,5 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 })
 export class CartComponent {
   data: Product | null = null;
+  myCartText: string = $localize`Моя корзина`;
 }

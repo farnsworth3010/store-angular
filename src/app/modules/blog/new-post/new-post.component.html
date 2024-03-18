@@ -1,4 +1,4 @@
-<nz-card nzTitle="Add new post">
+<nz-card [nzTitle]="newPostText">
   <form
     nz-form
     [formGroup]="validateForm"
@@ -7,6 +7,7 @@
     <nz-form-item>
       <nz-form-control
         class="form-input"
+        i18n-nzErrorTip
         nzErrorTip="Please input a post title!">
         <nz-input-group nzPrefixIcon="info">
           <input
@@ -14,6 +15,7 @@
             [disabled]="sending"
             nz-input
             formControlName="title"
+            i18n-placeholder
             placeholder="Title" />
         </nz-input-group>
       </nz-form-control>
@@ -21,18 +23,20 @@
     <nz-form-item>
       <nz-form-control
         class="form-input"
+        i18n-nzErrorTip
         nzErrorTip="Please input a post text!">
         <textarea
           class="form-input textarea"
           rows="4"
           nz-input
+          i18n-placeholder
           placeholder="Text"
           formControlName="text"
           [disabled]="sending"></textarea>
       </nz-form-control>
     </nz-form-item>
     <button [disabled]="sending" nz-button [nzType]="'primary'">
-      {{ sending ? 'Sending...' : 'Send' }}
+      {{ sending ? sendingText : sendText }}
     </button>
   </form>
 </nz-card>

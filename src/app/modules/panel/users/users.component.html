@@ -6,12 +6,12 @@
   [nzHideOnSinglePage]="true">
   <thead>
     <tr>
-      <th nzWidth="60px">ID</th>
-      <th>E-Mail</th>
-      <th>firstname</th>
-      <th>phone</th>
-      <th nzWidth="1rem">actions</th>
-      <th nzWidth="1rem">role</th>
+      <th i18n nzWidth="60px">ID</th>
+      <th i18n>E-Mail</th>
+      <th i18n>firstname</th>
+      <th i18n>phone</th>
+      <th i18n nzWidth="1rem">actions</th>
+      <th i18n nzWidth="1rem">role</th>
     </tr>
   </thead>
   <tbody>
@@ -37,10 +37,14 @@
                   <span
                     class="demote"
                     nz-popconfirm
-                    nzPopconfirmTitle="Are you sure demote this administrator?"
+                    i18n-nzPopconfirmTitle
+                    nzPopconfirmTitle="
+                      Are you sure demote this administrator?
+                    "
                     nzPopconfirmPlacement="bottom"
                     (nzOnConfirm)="setRole(user.ID, 2)"
                     nz-tooltip
+                    i18n-nzTooltipTitle
                     nzTooltipTitle="Demote the administrator"
                     nz-icon
                     nzType="arrow-down"
@@ -49,6 +53,7 @@
                   <span
                     class="demote"
                     nz-tooltip
+                    i18n-nzTooltipTitle
                     nzTooltipTitle="You can't demote yourself"
                     nz-icon
                     nzType="arrow-down"
@@ -59,10 +64,14 @@
                 <span
                   class="demote"
                   nz-popconfirm
-                  nzPopconfirmTitle="Are you sure assign this administrator?"
+                  i18n-nzPopconfirmTitle
+                  nzPopconfirmTitle="
+                    Are you sure assign this administrator?
+                  "
                   nzPopconfirmPlacement="bottom"
                   (nzOnConfirm)="setRole(user.ID, 1)"
                   nz-tooltip
+                  i18n-nzTooltipTitle
                   nzTooltipTitle="Assign as administrator"
                   nz-icon
                   nzType="arrow-up"
@@ -77,6 +86,7 @@
               @case (1) {
                 <span
                   nz-tooltip
+                  i18n-nzTooltipTitle
                   nzTooltipTitle="Administrator"
                   nz-icon
                   nzType="star"
@@ -85,6 +95,7 @@
               @case (2) {
                 <span
                   nz-tooltip
+                  i18n-nzTooltipTitle
                   nzTooltipTitle="Client"
                   nz-icon
                   nzType="user"

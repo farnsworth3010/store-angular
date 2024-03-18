@@ -1,12 +1,26 @@
 <form nz-form [formGroup]="productForm">
   <nz-form-item>
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input title">
-      <input placeholder="Title" nz-input formControlName="title" id="title" />
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      i18n-nzErrorTip
+      nzErrorTip="Please input title">
+      <input
+        i18n-placeholder
+        placeholder="Title"
+        nz-input
+        formControlName="title"
+        id="title" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item auto>
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input price!">
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      i18n-nzErrorTip
+      nzErrorTip="Please input price!">
       <input
+        i18n-placeholder
         placeholder="Price"
         nz-input
         type="number"
@@ -18,8 +32,10 @@
     <nz-form-control
       [nzSm]="14"
       [nzXs]="24"
+      i18n-nzErrorTip
       nzErrorTip="Please input short description!">
       <input
+        i18n-placeholder
         placeholder="Short description"
         nz-input
         type="text"
@@ -31,12 +47,14 @@
     <nz-form-control
       [nzSpan]="120"
       nzHasFeedback
+      i18n-nzErrorTip
       nzErrorTip="Please write something here!">
       <nz-textarea-count [nzMaxCharacterCount]="2000">
         <textarea
           formControlName="description"
           nz-input
           rows="2"
+          i18n-placeholder
           placeholder="Description"></textarea>
       </nz-textarea-count>
     </nz-form-control>
@@ -46,7 +64,7 @@
       nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
       [nzHeaders]="{ authorization: 'authorization-text' }">
       <button nz-button>
-        <span nz-icon nzType="upload"></span>
+        <span i18n nz-icon nzType="upload"></span>
         Click to Upload
       </button>
     </nz-upload>
@@ -55,6 +73,7 @@
     <nz-form-control>
       <div class="example-input">
         <input
+          i18n-placeholder
           placeholder="Brand"
           nz-input
           formControlName="brand"

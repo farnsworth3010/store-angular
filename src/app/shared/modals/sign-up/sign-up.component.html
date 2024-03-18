@@ -1,12 +1,15 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
-    <nz-form-control nzErrorTip="The input is not valid E-mail!">
+    <nz-form-control
+      i18n-nzErrorTip
+      nzErrorTip="The input is not valid E-mail!">
       <input placeholder="Email" nz-input formControlName="email" id="email" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your firstname!">
+    <nz-form-control i18n-nzErrorTip nzErrorTip="Please input your firstname!">
       <input
+        i18n-placeholder
         placeholder="Firstname"
         nz-input
         type="text"
@@ -15,8 +18,11 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your password! (>= 8 symbols)">
+    <nz-form-control
+      i18n-nzErrorTip
+      nzErrorTip="Please input your password! (>= 8 symbols)">
       <input
+        i18n-placeholder
         placeholder="Password"
         nz-input
         type="password"
@@ -28,6 +34,7 @@
   <nz-form-item>
     <nz-form-control [nzErrorTip]="errorTpl">
       <input
+        i18n-placeholder
         placeholder="Confirm password"
         nz-input
         type="password"
@@ -35,10 +42,12 @@
         id="checkPassword" />
       <ng-template #errorTpl let-control>
         @if (control.errors?.['required']) {
-          Please confirm your password!
+          <ng-container i18n> Please confirm your password! </ng-container>
         }
         @if (control.errors?.['confirm']) {
-          Two passwords that you enter is inconsistent!
+          <ng-container i18n>
+            Two passwords that you enter is inconsistent!
+          </ng-container>
         }
       </ng-template>
     </nz-form-control>
@@ -46,6 +55,7 @@
   <nz-form-item>
     <nz-form-control
       [nzValidateStatus]="validateForm.controls['phoneNumber']"
+      i18n-nzErrorTip
       nzErrorTip="Please input your phone number!">
       <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
         <ng-template #addOnBeforeTemplate>
@@ -54,6 +64,7 @@
           </nz-select>
         </ng-template>
         <input
+          i18n-placeholder
           placeholder="Phone number"
           formControlName="phoneNumber"
           id="'phoneNumber'"
@@ -63,11 +74,11 @@
   </nz-form-item>
 
   <nz-form-item nz-row class="register-area">
-    <nz-form-control nzErrorTip="You must agree">
+    <nz-form-control i18n-nzErrorTip nzErrorTip nzErrorTip="You must agree">
       <label nz-checkbox formControlName="agree">
         <span>
-          I have read the
-          <a (click)="agreement($event)">agreement</a>
+          <ng-container i18n> I have read the </ng-container>
+          <a i18n (click)="agreement($event)">agreement</a>
         </span>
       </label>
     </nz-form-control>

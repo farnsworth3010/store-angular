@@ -13,4 +13,7 @@ import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive
 })
 export class FooterComponent {
   constructor(public auth: AuthService) {}
+  gg() {
+    console.log(window);
+  }
 }

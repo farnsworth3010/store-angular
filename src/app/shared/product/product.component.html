@@ -1,6 +1,7 @@
 <div [routerLink]="'/product/' + data.ID" class="image-block">
   <img
     [class]="imageType"
+    i18n-alt
     alt="mock image"
     [nzSrc]="data.images ? data.images[0] : 'a'"
     [nzFallback]="imageFallbackUrl"

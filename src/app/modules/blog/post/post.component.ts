@@ -28,7 +28,7 @@ import { OnlyAdminsDirective } from '../../../core/directives/only-admins.direct
 })
 export class PostComponent {
   @Input() data!: BlogPost;
-
+  fromText: string = $localize`by`;
   @Output() deleteBlog: EventEmitter<void> = new EventEmitter<void>();
   @Output() openEditModal: EventEmitter<void> = new EventEmitter<void>();
 

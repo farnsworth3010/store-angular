@@ -1,10 +1,12 @@
 <ul class="header">
   <div class="links">
-    <li routerLinkActive="active" routerLink="/home">Home</li>
-    <li routerLinkActive="active" routerLink="/shop">Shop</li>
-    <li routerLinkActive="active" routerLink="/blog">Blog</li>
+    <li routerLinkActive="active" routerLink="/home" i18n>Home</li>
+    <li routerLinkActive="active" routerLink="/shop" i18n="link to catalog">
+      Shop
+    </li>
+    <li routerLinkActive="active" routerLink="/blog" i18n>Blog</li>
     @if (authService.authorizedSubject | async) {
-      <li routerLinkActive="active" routerLink="/account">Account</li>
+      <li routerLinkActive="active" routerLink="/account" i18n>Account</li>
     }
     <ng-container appOnlyAdmins #access="access">
       @if (access.auth.userInfo.getValue()?.role_id === 1) {
@@ -12,7 +14,8 @@
           class="admin"
           routerLinkActive="active"
           routerLink="/panel"
-          [queryParams]="{ tab: 'products' }">
+          [queryParams]="{ tab: 'products' }"
+          i18n="link to admin panel">
           Admin
         </li>
       }
@@ -31,10 +34,10 @@
     }
     @if (showSignOut) {
       <li class="profile-block">
-        <div (click)="signOut()">Sign out</div>
+        <div (click)="signOut()" i18n>Sign out</div>
       </li>
     } @else {
-      <li class="profile-block" (click)="toggleModal()">Sign in/up</li>
+      <li class="profile-block" (click)="toggleModal()" i18n>Sign in/up</li>
     }
     @if (authService.authorizedSubject | async) {
       <li class="saved">
@@ -70,7 +73,7 @@
 </nz-drawer>
 <nz-modal
   [(nzVisible)]="isModalVisible"
-  [nzTitle]="showSignUp ? 'Sign in' : 'Sign up'"
+  [nzTitle]="showSignUp ? signInHeader : signUpHeader"
   nzCancelText="Later"
   (nzOnCancel)="toggleModal()"
   nzCentered>
@@ -83,25 +86,27 @@
   </div>
   <div *nzModalFooter>
     @if (showSignUp) {
-      <button nz-button nzType="default" (click)="toggleRegistered()">
+      <button i18n nz-button nzType="default" (click)="toggleRegistered()">
         Sign up
       </button>
       <button
         [nzLoading]="isOkLoading"
         nz-button
         nzType="primary"
-        (click)="handleOk()">
+        (click)="handleOk()"
+        i18n>
         Confirm
       </button>
     } @else {
-      <button nz-button nzType="default" (click)="toggleRegistered()">
+      <button nz-button nzType="default" (click)="toggleRegistered()" i18n>
         Sign in
       </button>
       <button
         [nzLoading]="isOkLoading"
         nz-button
         nzType="primary"
-        (click)="handleOk()">
+        (click)="handleOk()"
+        i18n>
         Confirm
       </button>
     }

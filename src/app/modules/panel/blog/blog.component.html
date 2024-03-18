@@ -10,9 +10,9 @@
   (nzPageIndexChange)="changePage($event)">
   <thead>
     <tr>
-      <th nzWidth="60px">ID</th>
-      <th>title</th>
-      <th nzWidth="7rem">actions</th>
+      <th nzWidth="60px" i18n>ID</th>
+      <th i18n>title</th>
+      <th nzWidth="7rem" i18n>actions</th>
     </tr>
   </thead>
   <tbody>
@@ -33,6 +33,7 @@
               nz-icon
               nzType="eye"
               nz-tooltip
+              i18n-nzTooltipTitle
               nzTooltipTitle="View"
               nzTheme="outline"></span>
             <span
@@ -42,16 +43,19 @@
               nz-icon
               nzType="edit"
               nz-tooltip
+              i18n-nzTooltipTitle
               nzTooltipTitle="Edit"
               nzTheme="outline"></span>
             <span
               class="delete-icon icon"
               nz-popconfirm
+              i18n-nzPopconfirmTitle
               nzPopconfirmTitle="Are you sure delete this post?"
               nzPopconfirmPlacement="bottom"
               (nzOnConfirm)="deleteBlog(blog.ID)"
               nz-icon
               nz-tooltip
+              i18n-nzTooltipTitle
               nzTooltipTitle="Delete"
               nzType="delete"
               nzTheme="outline"></span>

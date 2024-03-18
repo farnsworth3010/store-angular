@@ -64,7 +64,8 @@ export class HeaderComponent implements OnInit {
     private destroyRef: DestroyRef,
     private router: Router
   ) {}
-
+  signInHeader: string = $localize`Sign in`;
+  signUpHeader: string = $localize`Sign up`;
   showDrawer = false;
   isModalVisible: boolean = false;
   showSignUp: boolean = true;

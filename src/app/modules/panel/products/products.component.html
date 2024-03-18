@@ -6,6 +6,7 @@
         type="text"
         nz-input
         spellcheck="false"
+        i18n-placeholder
         placeholder="Input search text" />
     </nz-input-group>
     <ng-template #suffixIconSearch>
@@ -14,7 +15,7 @@
   </div>
 
   <button nz-button [nzType]="'primary'" (click)="showModal(null, 0)">
-    <span>New product</span>
+    <span i18n>New product</span>
   </button>
 </div>
 
@@ -26,11 +27,11 @@
   [nzHideOnSinglePage]="true">
   <thead>
     <tr>
-      <th nzWidth="60px">ID</th>
-      <th>Title</th>
-      <th>Brand</th>
-      <th>Price</th>
-      <th nzWidth="7rem">Actions</th>
+      <th i18n nzWidth="60px">ID</th>
+      <th i18n>Title</th>
+      <th i18n>Brand</th>
+      <th i18n>Price</th>
+      <th i18n nzWidth="7rem">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -56,6 +57,7 @@
               nz-icon
               nzType="eye"
               nz-tooltip
+              i18n-nzTooltipTitle
               nzTooltipTitle="View"
               nzTheme="outline"></span>
             <span
@@ -64,16 +66,19 @@
               nzType="edit"
               nz-tooltip
               (click)="showModal(product, 1)"
+              i18n-nzTooltipTitle
               nzTooltipTitle="Edit"
               nzTheme="outline"></span>
             <span
               nz-popconfirm
+              i18n-nzPopConfirmTitle
               nzPopconfirmTitle="Are you sure delete this product?"
               nzPopconfirmPlacement="bottom"
               (nzOnConfirm)="deleteProduct(product.ID)"
               class="delete-icon icon"
               nz-icon
               nz-tooltip
+              i18n-nzTooltipTitle
               nzTooltipTitle="Delete"
               nzType="delete"
               nzTheme="outline"></span>

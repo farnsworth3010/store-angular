@@ -1,19 +1,30 @@
 <form nz-form [formGroup]="blogForm">
   <nz-form-item>
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input title">
-      <input placeholder="Title" nz-input formControlName="title" id="title" />
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      i18n-nzErrorTip
+      nzErrorTip="Please input title">
+      <input
+        i18n-placeholder
+        placeholder="Title"
+        nz-input
+        formControlName="title"
+        id="title" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control
       [nzSpan]="120"
       nzHasFeedback
+      i18n-nzErrorTip
       nzErrorTip="Please write something here!">
       <nz-textarea-count [nzMaxCharacterCount]="2000">
         <textarea
           formControlName="text"
           nz-input
           rows="2"
+          i18n-placeholder
           placeholder="Text"></textarea>
       </nz-textarea-count>
     </nz-form-control>

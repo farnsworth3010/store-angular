@@ -1,5 +1,5 @@
 <div class="container">
-  <nz-card nzTitle="Admin panel">
+  <nz-card i18n-nzTitle nzTitle="Admin panel">
     <nz-tabset nzLinkRouter>
       <nz-tab>
         <a
@@ -7,7 +7,8 @@
           nz-tab-link
           [routerLink]="['.']"
           [queryParams]="{ tab: 'products' }"
-          queryParamsHandling="merge">
+          queryParamsHandling="merge"
+          i18n>
           Products
         </a>
         <ng-template nz-tab>
@@ -20,7 +21,8 @@
           nz-tab-link
           [routerLink]="['.']"
           [queryParams]="{ tab: 'admins' }"
-          queryParamsHandling="merge">
+          queryParamsHandling="merge"
+          i18n>
           Admins
         </a>
         <ng-template nz-tab>
@@ -33,7 +35,8 @@
           nz-tab-link
           [routerLink]="['.']"
           [queryParams]="{ tab: 'users' }"
-          queryParamsHandling="merge">
+          queryParamsHandling="merge"
+          i18n>
           Users
         </a>
         <ng-template nz-tab>
@@ -46,7 +49,8 @@
           nz-tab-link
           [routerLink]="['.']"
           [queryParams]="{ tab: 'Blog' }"
-          queryParamsHandling="merge">
+          queryParamsHandling="merge"
+          i18n>
           Blog
         </a>
         <ng-template nz-tab>
@@ -59,7 +63,8 @@
           nz-tab-link
           [routerLink]="['.']"
           [queryParams]="{ tab: 'Reviews' }"
-          queryParamsHandling="merge">
+          queryParamsHandling="merge"
+          i18n>
           Reviews
         </a>
       </nz-tab>
@@ -69,7 +74,8 @@
           nz-tab-link
           [routerLink]="['.']"
           [queryParams]="{ tab: 'Orders' }"
-          queryParamsHandling="merge">
+          queryParamsHandling="merge"
+          i18n>
           Orders
         </a>
       </nz-tab>

@@ -1,4 +1,4 @@
-export const agreementText: string = `
+export const agreementText: string = $localize`
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 

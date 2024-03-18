@@ -3,29 +3,48 @@
   <app-filters />
   <div class="products-container">
     <div class="actions">
-      <div class="select-container">
-        <div class="sort">
-          <p>Sort by:</p>
-          <nz-select ngModel="Popularity" nzSize="large">
-            <nz-option nzValue="Popularity" nzLabel="Popularity"></nz-option>
-            <nz-option nzValue="Price" nzLabel="Price"></nz-option>
-            <nz-option nzValue="Last added" nzLabel="Last added"></nz-option>
-          </nz-select>
+      <form [formGroup]="filtersForm">
+        <div class="select-container">
+          <div class="sort">
+            <p i18n>Sort by:</p>
+            <nz-select
+              formControlName="sort_criterion"
+              class="select"
+              nzSize="large">
+              <nz-option
+                [nzValue]="1"
+                i18n-nzLabel
+                nzLabel="Relevant"></nz-option>
+              <nz-option
+                [nzValue]="2"
+                i18n-nzLabel
+                nzLabel="Price >"></nz-option>
+              <nz-option
+                [nzValue]="3"
+                i18n-nzLabel
+                nzLabel="Price <"></nz-option>
+              <nz-option
+                [nzValue]="4"
+                i18n-nzLabel
+                nzLabel="Last added"></nz-option>
+            </nz-select>
+          </div>
+          <div class="search">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input
+                [formControl]="searchControl"
+                type="text"
+                nz-input
+                spellcheck="false"
+                i18n-placeholder
+                placeholder="input search text" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <span nz-icon nzType="search"></span>
+            </ng-template>
+          </div>
         </div>
-        <div class="search">
-          <nz-input-group [nzSuffix]="suffixIconSearch">
-            <input
-              [formControl]="searchControl"
-              type="text"
-              nz-input
-              spellcheck="false"
-              placeholder="input search text" />
-          </nz-input-group>
-          <ng-template #suffixIconSearch>
-            <span nz-icon nzType="search"></span>
-          </ng-template>
-        </div>
-      </div>
+      </form>
       <div class="change-view-container">
         <button
           nzSize="large"

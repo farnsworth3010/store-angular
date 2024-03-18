@@ -42,6 +42,9 @@ import { NzCardComponent } from 'ng-zorro-antd/card';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewPostComponent {
+  newPostText: string = $localize`Add post`;
+  sendingText: string = $localize`Sending...`;
+  sendText: string = $localize`Send`;
   validateForm: FormGroup<{
     title: FormControl<string>;
     text: FormControl<string>;
