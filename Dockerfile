@@ -1,6 +1,7 @@
 FROM node:20 as build
 WORKDIR /usr/local/app
 COPY ./ /usr/local/app/
+RUN npm install -g npm@10.5.0
 RUN npm install
 RUN npm install -g @angular/cli
 RUN ng build 
