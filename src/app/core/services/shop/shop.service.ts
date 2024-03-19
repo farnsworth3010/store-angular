@@ -25,9 +25,12 @@ export class ShopService {
       apiUrl + `/product/?page=${page}&limit=${limit}`
     );
   }
-  getFilteredProducts() // page: number,
-  // limit: number
-  : Observable<ApiPaginatedResponse<Product>> {
+  getFilteredProducts(
+    page: number,
+    limit: number
+  ): Observable<ApiPaginatedResponse<Product>> {
+    console.log(page);
+    console.log(limit);
     return this.http.post<ApiPaginatedResponse<Product>>(
       apiUrl + `/product/filter`,
       this.filters.filters.getValue()
