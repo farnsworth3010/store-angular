@@ -1,8 +1,10 @@
 version: '3.3'
 
 services:
-  angular-store:
+  nginx:
+    volumes:
+      - ./html:/usr/share/nginx/html
     build: .
     restart: always
     ports:
-      - '8080:80'
+      - '60:60'

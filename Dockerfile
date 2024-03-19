@@ -1,13 +1,4 @@
-FROM node:20 as build
-WORKDIR /usr/local/app
-COPY ./ /usr/local/app/
-RUN npm install -g npm@10.5.0
-RUN npm install
-RUN npm install -g @angular/cli
-RUN ng build 
-
 FROM nginx:latest
-COPY --from=build /usr/local/app/dist/store-angular/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 60
