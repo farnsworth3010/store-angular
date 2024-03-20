@@ -33,6 +33,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay } from 'rxjs';
 import { OnlyAdminsDirective } from '../../core/directives/only-admins.directive';
 import { AsyncPipe } from '@angular/common';
+import { User } from '../../core/interfaces/user';
 
 @Component({
   selector: 'app-header',
@@ -85,6 +86,9 @@ export class HeaderComponent implements OnInit {
     this.authService.authorized
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((authorized: boolean) => {
+        if (!authorized) {
+          this.authService.userInfo.next(null);
+        }
         this.showSignOut = authorized;
         this.changeDetector.markForCheck();
       });
@@ -102,6 +106,7 @@ export class HeaderComponent implements OnInit {
   signOut(): void {
     this.authService.signOut();
     this.changeDetector.markForCheck();
+    this.authService.userInfo.next(null);
   }
 
   toggleMenu(): void {
@@ -137,6 +142,14 @@ export class HeaderComponent implements OnInit {
                 token,
                 !this.signInForm.validateForm.getRawValue().remember
               );
+              this.authService
+                .getUserInfo()
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe({
+                  next: (user: User) => {
+                    this.authService.userInfo.next(user);
+                  },
+                });
             } else {
               this.signInForm.validateForm.updateValueAndValidity();
             }

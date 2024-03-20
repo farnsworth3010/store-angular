@@ -8,10 +8,14 @@ export const authInit = () => {
   return (): Observable<void> => {
     return new Observable<void>(subscriber => {
       if (authService.getToken()) {
-        authService.authorizedSubject.next(true);
         authService.getUserInfo().subscribe({
           next: (user: User) => {
             authService.userInfo.next(user);
+            authService.authorizedSubject.next(true);
+          },
+          error: () => {
+            authService.authorizedSubject.next(false);
+            authService.resetToken();
           },
         });
       }

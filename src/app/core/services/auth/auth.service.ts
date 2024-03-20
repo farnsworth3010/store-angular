@@ -25,6 +25,10 @@ export class AuthService {
     return this.http.get<User>(apiUrl + '/auth/info');
   }
 
+  resetToken(): void {
+    localStorage.removeItem('access_token');
+  }
+
   deleteUser(): Observable<void> {
     return this.http.delete<void>(apiUrl + '/auth/');
   }
