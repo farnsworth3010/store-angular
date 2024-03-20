@@ -1,0 +1,16 @@
+<form nz-form [formGroup]="brandForm">
+  <nz-form-item>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      i18n-nzErrorTip
+      nzErrorTip="Please input name">
+      <input
+        i18n-placeholder
+        placeholder="Name"
+        nz-input
+        formControlName="Name"
+        id="name" />
+    </nz-form-control>
+  </nz-form-item>
+</form>

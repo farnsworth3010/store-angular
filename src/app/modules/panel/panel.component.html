@@ -20,6 +20,20 @@
           *nzTabLink
           nz-tab-link
           [routerLink]="['.']"
+          [queryParams]="{ tab: 'brands' }"
+          queryParamsHandling="merge"
+          i18n>
+          Brands
+        </a>
+        <ng-template nz-tab>
+          <app-brands />
+        </ng-template>
+      </nz-tab>
+      <nz-tab>
+        <a
+          *nzTabLink
+          nz-tab-link
+          [routerLink]="['.']"
           [queryParams]="{ tab: 'admins' }"
           queryParamsHandling="merge"
           i18n>

@@ -1,0 +1,46 @@
+.delete-icon {
+  color: red;
+  cursor: pointer;
+}
+
+nz-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search {
+  width: fit-content;
+  margin-right: 1rem;
+
+  input {
+    padding: 0.25rem;
+    border: none;
+    outline: none !important;
+  }
+}
+
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    cursor: pointer;
+  }
+}
+
+nz-list-header {
+  padding: 8px !important;
+}
+
+nz-table {
+  border: 1px solid #cecece;
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}

@@ -65,24 +65,18 @@
       [nzHeaders]="{ authorization: 'authorization-text' }">
       <button nz-button>
         <span i18n nz-icon nzType="upload"></span>
-        Click to Upload
+        <ng-container i18n>Click to Upload</ng-container>
       </button>
     </nz-upload>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <div class="example-input">
-        <input
-          i18n-placeholder
-          placeholder="Brand"
-          nz-input
-          formControlName="brand"
-          [nzAutocomplete]="auto" />
-        <nz-autocomplete
-          [nzDataSource]="brands!"
-          nzckfill
-          #auto></nz-autocomplete>
-      </div>
+      <nz-select formControlName="brand">
+        @for (brand of brands; track brand) {
+          <nz-option [nzValue]="brand" [nzLabel]="brand"></nz-option>
+        }
+        // change map to value
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 </form>

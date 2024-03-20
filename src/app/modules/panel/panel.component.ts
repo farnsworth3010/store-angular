@@ -13,6 +13,7 @@ import { ProductsComponent } from './products/products.component';
 import { AdminsComponent } from './admins/admins.component';
 import { UsersComponent } from './users/users.component';
 import { BlogComponent } from './blog/blog.component';
+import { BrandsComponent } from './brands/brands.component';
 
 @Component({
   selector: 'app-panel',
@@ -35,6 +36,7 @@ import { BlogComponent } from './blog/blog.component';
     AdminsComponent,
     UsersComponent,
     BlogComponent,
+    BrandsComponent,
   ],
 })
 export class PanelComponent {}

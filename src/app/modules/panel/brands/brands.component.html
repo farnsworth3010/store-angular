@@ -1,0 +1,80 @@
+<div class="action-group">
+  <button nz-button [nzType]="'primary'" (click)="showModal()">
+    <span i18n>New brand</span>
+  </button>
+</div>
+
+<nz-table
+  [nzData]="data!"
+  [nzLoading]="fetching"
+  [nzShowPagination]="false"
+  nzSize="small"
+  [nzHideOnSinglePage]="true">
+  <thead>
+    <tr>
+      <th i18n nzWidth="60px">ID</th>
+      <th i18n>Name</th>
+      <th i18n nzWidth="7rem">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (brand of data; track brand) {
+      <tr>
+        <td>
+          {{ brand.ID }}
+        </td>
+        <td>
+          {{ brand.Name }}
+        </td>
+        <td class="actions">
+          <div class="actions-container">
+            <span
+              (click)="showProductsOfBrand(brand.ID)"
+              aria-label="dsf"
+              nz-icon
+              nzType="eye"
+              nz-tooltip
+              i18n-nzTooltipTitle
+              nzTooltipTitle="View"
+              nzTheme="outline"></span>
+            <span
+              class="edit-icon icon"
+              nz-icon
+              nzType="edit"
+              nz-tooltip
+              i18n-nzTooltipTitle
+              nzTooltipTitle="Edit"
+              nzTheme="outline"></span>
+            <span
+              nz-popconfirm
+              i18n-nzPopConfirmTitle
+              nzPopconfirmTitle="Are you sure to delete this brand?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="deleteBrand(brand.ID)"
+              class="delete-icon icon"
+              nz-icon
+              nz-tooltip
+              i18n-nzTooltipTitle
+              nzTooltipTitle="Delete"
+              nzType="delete"
+              nzTheme="outline"></span>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</nz-table>
+<ng-template nz-tab> </ng-template>
+<nz-modal
+  nzCentered
+  [(nzVisible)]="isModalVisible"
+  nzTitle="New brand"
+  i18n-nzTitle
+  (nzOnOk)="handleOk()"
+  (nzOnCancel)="handleCancel()"
+  i18n-nzOkText
+  nzOkText="Add">
+  <ng-container *nzModalContent>
+    <app-new-brand [data]="brand!" />
+  </ng-container>
+</nz-modal>
