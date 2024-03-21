@@ -2,9 +2,7 @@ version: '3.3'
 
 services:
   nginx:
-    volumes:
-      - ./html:/usr/share/nginx/html
     build: .
     restart: always
     ports:
-      - '8089:8089'
+      - '8088:8088'

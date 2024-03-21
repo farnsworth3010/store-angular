@@ -1,1 +1,1 @@
-export const apiUrl: string = 'http://localhost:8082/api';
+export const apiUrl: string = 'http://api-store.codebreakers.twc1.net/api';
